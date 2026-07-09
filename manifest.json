@@ -1,17 +1,17 @@
 {
-  "name": "سامانه محاسبات طلا و سکه",
-  "short_name": "حسابدار طلا",
-  "description": "ماشین حساب تخصصی و پیشرفته طلا، سکه و طلای آبشده",
-  "start_url": "index.html",
+  "name": "ماشین حساب طلا و سکه",
+  "short_name": "طلا و سکه",
+  "description": "محاسبه قیمت طلا و سکه با در نظر گرفتن اجرت، سود و مالیات",
+  "start_url": "/index.html",
   "display": "standalone",
-  "background_color": "#121212",
-  "theme_color": "#d4af37",
-  "orientation": "portrait",
+  "background_color": "#ffffff",
+  "theme_color": "#b8860b",
   "icons": [
     {
-      "src": "https://img.icons8.com/fluent/512/gold-bars.png",
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='100' fill='%23b8860b'/%3E%3Ctext x='50%25' y='55%25' font-size='280' text-anchor='middle' dy='.35em' fill='white' font-family='Arial'%3E💰%3C/text%3E%3C/svg%3E",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
     }
   ]
 }
