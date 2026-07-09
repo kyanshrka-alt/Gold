@@ -1,7 +1,7 @@
-// sw.js - Service Worker برای PWA
+// sw.js - Service Worker برای PWA (با پشتیبانی از مسیرهای نسبی)
 const CACHE_NAME = 'gold-calc-v1';
 const urlsToCache = [
-    'index.html',
+    '.',               // index.html را بارگذاری می‌کند
     'manifest.json'
 ];
 
@@ -9,7 +9,10 @@ const urlsToCache = [
 self.addEventListener('install', (event) => {
     event.waitUntil(
         caches.open(CACHE_NAME)
-            .then((cache) => cache.addAll(urlsToCache))
+            .then((cache) => {
+                console.log('📦 کش کردن فایل‌ها...');
+                return cache.addAll(urlsToCache);
+            })
             .then(() => self.skipWaiting())
     );
 });
@@ -21,6 +24,7 @@ self.addEventListener('activate', (event) => {
             return Promise.all(
                 cacheNames.map((cache) => {
                     if (cache !== CACHE_NAME) {
+                        console.log('🗑️ حذف کش قدیمی:', cache);
                         return caches.delete(cache);
                     }
                 })
@@ -33,12 +37,28 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
     event.respondWith(
         caches.match(event.request)
-            .then((response) => response || fetch(event.request))
-            .catch(() => {
-                return new Response('صفحه مورد نظر در دسترس نیست.', {
-                    status: 404,
-                    statusText: 'Not Found'
-                });
+            .then((response) => {
+                // اگر در کش پیدا شد، همان را برگردان
+                if (response) {
+                    return response;
+                }
+                // در غیر این صورت از شبکه درخواست کن
+                return fetch(event.request)
+                    .then((networkResponse) => {
+                        // پاسخ را در کش ذخیره کن (برای دفعات بعد)
+                        return caches.open(CACHE_NAME)
+                            .then((cache) => {
+                                cache.put(event.request, networkResponse.clone());
+                                return networkResponse;
+                            });
+                    })
+                    .catch(() => {
+                        // اگر اینترنت قطع بود، یک پیام آفلاین نشان بده
+                        return new Response('⚠️ اتصال اینترنت برقرار نیست.', {
+                            status: 503,
+                            statusText: 'Service Unavailable'
+                        });
+                    });
             })
     );
 });
