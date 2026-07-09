@@ -5,26 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>ماشین حساب پیشرفته طلا و سکه</title>
 
-    <!-- تنظیم مسیر پایه برای GitHub Pages -->
+    <!-- تنظیم مسیر پایه برای GitHub Pages (اختیاری) -->
     <base href="/">
 
     <!-- PWA Manifest -->
     <link rel="manifest" href="manifest.json">
 
-    <!-- رنگ‌های PWA -->
     <meta name="theme-color" content="#b8860b">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-    <!-- ===== آیکون‌های جدید با طراحی زیباتر (گرادینت طلایی + سایه) ===== -->
-    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23d4af37;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%23aa841b;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='512' height='512' rx='112' fill='url(%23g)' /%3E%3Ccircle cx='256' cy='256' r='180' fill='rgba(255,255,255,0.1)' /%3E%3Ctext x='256' y='288' font-size='240' text-anchor='middle' dy='.35em' fill='white' font-family='Vazirmatn, Arial, sans-serif' font-weight='bold' style='text-shadow: 0 8px 20px rgba(0,0,0,0.3);'%3E%D8%B7%3C/text%3E%3C/svg%3E">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23d4af37;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%23aa841b;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='512' height='512' rx='112' fill='url(%23g)' /%3E%3Ccircle cx='256' cy='256' r='180' fill='rgba(255,255,255,0.1)' /%3E%3Ctext x='256' y='288' font-size='240' text-anchor='middle' dy='.35em' fill='white' font-family='Vazirmatn, Arial, sans-serif' font-weight='bold' style='text-shadow: 0 8px 20px rgba(0,0,0,0.3);'%3E%D8%B7%3C/text%3E%3C/svg%3E">
+    <!-- آیکون‌ها -->
+    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='100' fill='%23b8860b'/%3E%3Ctext x='50%25' y='55%25' font-size='280' text-anchor='middle' dy='.35em' fill='white' font-family='Arial' font-weight='bold'%3E%D8%B7%3C/text%3E%3C/svg%3E">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='100' fill='%23b8860b'/%3E%3Ctext x='50%25' y='55%25' font-size='280' text-anchor='middle' dy='.35em' fill='white' font-family='Arial' font-weight='bold'%3E%D8%B7%3C/text%3E%3C/svg%3E">
 
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
     <style>
-        /* ===== استایل‌های کامل (تم سفید) ===== */
+        /* ===== همه‌ی استایل‌ها مانند قبل (بدون تغییر) ===== */
         :root {
             --bg-color: #ffffff;
             --card-bg: #f8f9fa;
@@ -35,12 +34,7 @@
             --border-color: #cccccc;
             --danger-color: #d32f2f;
         }
-
-        * {
-            box-sizing: border-box;
-            font-family: 'Vazirmatn', Tahoma, sans-serif;
-        }
-
+        * { box-sizing: border-box; font-family: 'Vazirmatn', Tahoma, sans-serif; }
         body {
             background-color: var(--bg-color);
             color: var(--text-color);
@@ -51,7 +45,6 @@
             margin: 0;
             padding: 20px;
         }
-
         .calculator-card {
             background-color: var(--card-bg);
             border: 1px solid var(--gold-secondary);
@@ -62,7 +55,6 @@
             padding: 25px;
             position: relative;
         }
-
         h2 {
             text-align: center;
             color: var(--gold-primary);
@@ -71,13 +63,11 @@
             font-size: 20px;
             font-weight: 700;
         }
-
         .tabs {
             display: flex;
             border-bottom: 2px solid var(--border-color);
             margin-bottom: 20px;
         }
-
         .tab-btn {
             flex: 1;
             background: none;
@@ -90,17 +80,12 @@
             transition: all 0.3s;
             text-align: center;
         }
-
         .tab-btn.active {
             color: var(--gold-primary);
             border-bottom: 3px solid var(--gold-primary);
             margin-bottom: -2px;
         }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
+        .form-group { margin-bottom: 15px; }
         .checkbox-group {
             display: flex;
             align-items: center;
@@ -111,21 +96,14 @@
             border-radius: 8px;
             border: 1px solid var(--border-color);
         }
-
-        .checkbox-group input {
-            width: auto;
-            cursor: pointer;
-        }
-
+        .checkbox-group input { width: auto; cursor: pointer; }
         label {
             display: block;
             margin-bottom: 6px;
             font-size: 13px;
             color: #555;
         }
-
-        input,
-        select {
+        input, select {
             width: 100%;
             padding: 12px;
             background-color: var(--input-bg);
@@ -136,27 +114,14 @@
             box-sizing: border-box;
             transition: all 0.3s ease;
         }
-
-        input:focus,
-        select:focus {
+        input:focus, select:focus {
             outline: none;
             border-color: var(--gold-primary);
             box-shadow: 0 0 8px rgba(184, 134, 11, 0.3);
         }
-
-        input:disabled {
-            opacity: 0.4;
-            cursor: not-allowed;
-        }
-
-        .row {
-            display: flex;
-            gap: 12px;
-        }
-        .row .form-group {
-            flex: 1;
-        }
-
+        input:disabled { opacity: 0.4; cursor: not-allowed; }
+        .row { display: flex; gap: 12px; }
+        .row .form-group { flex: 1; }
         button.calc-btn {
             width: 100%;
             padding: 14px;
@@ -170,13 +135,8 @@
             transition: transform 0.2s, opacity 0.2s;
             margin-top: 5px;
         }
-        button.calc-btn:hover {
-            opacity: 0.9;
-        }
-        button.calc-btn:active {
-            transform: scale(0.98);
-        }
-
+        button.calc-btn:hover { opacity: 0.9; }
+        button.calc-btn:active { transform: scale(0.98); }
         .action-row {
             display: flex;
             gap: 10px;
@@ -196,9 +156,7 @@
             color: #222;
             border: 1px solid var(--border-color);
         }
-        .action-row button:hover {
-            background: #d0d0d0;
-        }
+        .action-row button:hover { background: #d0d0d0; }
         .action-row .btn-pdf {
             background: #c62828;
             color: #fff;
@@ -214,7 +172,6 @@
             color: #fff;
             border-color: var(--gold-secondary);
         }
-
         .results {
             margin-top: 20px;
             background-color: rgba(0, 0, 0, 0.03);
@@ -222,7 +179,6 @@
             padding: 15px;
             border: 1px dashed var(--border-color);
         }
-
         .result-item {
             display: flex;
             justify-content: space-between;
@@ -244,16 +200,8 @@
             padding-top: 10px;
             border-top: 2px solid var(--gold-secondary);
         }
-        .bubble-text {
-            color: var(--danger-color) !important;
-            font-weight: bold;
-        }
-        .unit {
-            font-size: 11px;
-            color: #888;
-            margin-right: 3px;
-        }
-
+        .bubble-text { color: var(--danger-color) !important; font-weight: bold; }
+        .unit { font-size: 11px; color: #888; margin-right: 3px; }
         .invoice-overlay {
             display: none;
             position: fixed;
@@ -269,10 +217,7 @@
             padding: 20px;
             direction: rtl;
         }
-        .invoice-overlay.show {
-            display: flex;
-        }
-
+        .invoice-overlay.show { display: flex; }
         .invoice-box {
             background: #ffffff;
             color: #222;
@@ -286,7 +231,6 @@
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
             position: relative;
         }
-
         .invoice-box h3 {
             text-align: center;
             color: var(--gold-primary);
@@ -301,7 +245,6 @@
             color: #777;
             margin-bottom: 20px;
         }
-
         .invoice-row {
             display: flex;
             justify-content: space-between;
@@ -318,15 +261,8 @@
             padding-top: 14px;
             margin-top: 8px;
         }
-        .invoice-row .label {
-            color: #555;
-            text-align: right;
-        }
-        .invoice-row .value {
-            font-weight: 500;
-            text-align: left;
-        }
-
+        .invoice-row .label { color: #555; text-align: right; }
+        .invoice-row .value { font-weight: 500; text-align: left; }
         .invoice-actions {
             display: flex;
             gap: 12px;
@@ -347,29 +283,21 @@
             background: #ccc;
             color: #222;
         }
-        .invoice-actions .btn-close-inv:hover {
-            background: #bbb;
-        }
+        .invoice-actions .btn-close-inv:hover { background: #bbb; }
         .invoice-actions .btn-pdf-inv {
             background: #c62828;
             color: #fff;
         }
-        .invoice-actions .btn-pdf-inv:hover {
-            background: #e53935;
-        }
+        .invoice-actions .btn-pdf-inv:hover { background: #e53935; }
         .invoice-actions .btn-print-inv {
             background: #0d47a1;
             color: #fff;
         }
-        .invoice-actions .btn-print-inv:hover {
-            background: #1565c0;
-        }
-
+        .invoice-actions .btn-print-inv:hover { background: #1565c0; }
         .divider-line {
             margin: 15px 0;
             border-top: 2px dashed var(--gold-secondary);
         }
-
         #installBanner {
             display: none;
             background: var(--gold-primary);
@@ -385,21 +313,11 @@
             width: 100%;
             transition: 0.2s;
         }
-        #installBanner:hover {
-            opacity: 0.9;
-        }
-        #installBanner.hidden {
-            display: none !important;
-        }
-
+        #installBanner:hover { opacity: 0.9; }
+        #installBanner.hidden { display: none !important; }
         @media print {
-            body * {
-                visibility: hidden;
-            }
-            .invoice-overlay,
-            .invoice-overlay * {
-                visibility: visible;
-            }
+            body * { visibility: hidden; }
+            .invoice-overlay, .invoice-overlay * { visibility: visible; }
             .invoice-overlay {
                 position: absolute;
                 top: 0;
@@ -421,30 +339,13 @@
                 border-radius: 0;
                 width: 100%;
             }
-            .invoice-box h3 {
-                color: #b8860b !important;
-                border-bottom-color: #999;
-            }
-            .invoice-row .label {
-                color: #333 !important;
-            }
-            .invoice-row {
-                border-bottom-color: #ddd;
-                color: #000 !important;
-            }
-            .invoice-row.total-row {
-                color: #b8860b !important;
-                border-top-color: #b8860b;
-            }
-            .invoice-actions {
-                display: none !important;
-            }
-            .invoice-box .sub-title {
-                color: #555 !important;
-            }
-            .divider-line {
-                border-top-color: #b8860b !important;
-            }
+            .invoice-box h3 { color: #b8860b !important; border-bottom-color: #999; }
+            .invoice-row .label { color: #333 !important; }
+            .invoice-row { border-bottom-color: #ddd; color: #000 !important; }
+            .invoice-row.total-row { color: #b8860b !important; border-top-color: #b8860b; }
+            .invoice-actions { display: none !important; }
+            .invoice-box .sub-title { color: #555 !important; }
+            .divider-line { border-top-color: #b8860b !important; }
         }
     </style>
 </head>
@@ -574,7 +475,7 @@
 
     <script>
         // ==================================================
-        //  بخش اصلی محاسبات
+        //  بخش اصلی محاسبات (بدون تغییر)
         // ==================================================
         let lastGoldData = null;
         let lastCoinData = null;
@@ -906,9 +807,10 @@
         });
 
         // ==================================================
-        //  بخش PWA (ثبت Service Worker و نصب)
+        //  بخش PWA (اصلاح‌شده با مسیرهای پویا)
         // ==================================================
         if ('serviceWorker' in navigator) {
+            // ثبت Service Worker با مسیر نسبی (همیشه از ریشه)
             navigator.serviceWorker.register('sw.js', { scope: '/' })
                 .then(() => console.log('✅ Service Worker ثبت شد.'))
                 .catch(err => console.error('❌ خطا در ثبت Service Worker:', err));
