@@ -2,11 +2,59 @@
 <html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+
+    <!-- ====== iOS / iPhone Home Screen ====== -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="ماشین حساب طلا">
+    <meta name="theme-color" content="#121212">
+    <meta name="background-color" content="#121212">
+
+    <!-- ====== Apple Touch Icon (با پس‌زمینه طلایی) ====== -->
+    <link rel="apple-touch-icon" sizes="180x180" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23d4af37;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%23b8960f;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='22' fill='url(%23g)'/%3E%3Ctext x='50' y='68' font-size='48' text-anchor='middle' fill='%23121212' font-family='system-ui, -apple-system, sans-serif' font-weight='bold'%3Eط%3C/text%3E%3C/svg%3E">
+
+    <!-- ====== Fallback Icon (برای دستگاه‌های قدیمی‌تر) ====== -->
+    <link rel="apple-touch-icon" sizes="152x152" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23d4af37'/%3E%3Ctext x='50' y='68' font-size='48' text-anchor='middle' fill='%23121212' font-family='system-ui, sans-serif' font-weight='bold'%3Eط%3C/text%3E%3C/svg%3E">
+
     <title>ماشین حساب پیشرفته طلا و سکه</title>
-    <!-- html2pdf برای PDF بهتر -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <!-- html2pdf برای PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js">
+    </script>
+
     <style>
+        /* ====== ریست و تنظیمات پایه ====== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            background-color: #121212;
+            /* پس‌زمینه یکدست برای جلوگیری از فلاش سفید */
+            min-height: 100vh;
+            min-height: 100dvh;
+            /* برای iPhone با ناچ */
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            min-height: 100dvh;
+            margin: 0;
+            padding: 20px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
         :root {
             --bg-color: #121212;
             --card-bg: #1e1e1e;
@@ -18,22 +66,6 @@
             --danger-color: #cf6679;
         }
 
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-        }
-
         .calculator-card {
             background-color: var(--card-bg);
             border: 1px solid var(--gold-secondary);
@@ -43,6 +75,8 @@
             max-width: 520px;
             padding: 25px;
             position: relative;
+            backdrop-filter: blur(2px);
+            -webkit-backdrop-filter: blur(2px);
         }
 
         h2 {
@@ -53,6 +87,7 @@
             font-size: 22px;
         }
 
+        /* ====== بقیه استایل‌ها ====== */
         .tabs {
             display: flex;
             border-bottom: 2px solid var(--border-color);
@@ -116,6 +151,8 @@
             font-size: 15px;
             box-sizing: border-box;
             transition: all 0.3s ease;
+            -webkit-appearance: none;
+            appearance: none;
         }
 
         input:focus,
@@ -245,6 +282,7 @@
             height: 100%;
             background: rgba(0, 0, 0, 0.7);
             backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
             z-index: 1000;
             justify-content: center;
             align-items: center;
@@ -347,7 +385,28 @@
             background: #1565c0;
         }
 
-        /* ===== استایل PDF (برای پرینت) ===== */
+        .divider-line {
+            margin: 15px 0;
+            border-top: 2px dashed var(--gold-secondary);
+        }
+
+        .invoice-details-table {
+            width: 100%;
+            margin: 15px 0;
+        }
+        .invoice-details-table th,
+        .invoice-details-table td {
+            padding: 8px;
+            text-align: right;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .invoice-details-table th {
+            background-color: rgba(212, 175, 55, 0.1);
+            color: var(--gold-primary);
+            font-weight: bold;
+        }
+
+        /* ===== استایل پرینت ===== */
         @media print {
             body * {
                 visibility: hidden;
@@ -365,6 +424,7 @@
                 background: #fff !important;
                 padding: 20px;
                 backdrop-filter: none;
+                -webkit-backdrop-filter: none;
                 display: flex !important;
             }
             .invoice-box {
@@ -398,26 +458,34 @@
             }
         }
 
-        .divider-line {
-            margin: 15px 0;
-            border-top: 2px dashed var(--gold-secondary);
+        /* ===== بهبود نمایش در iPhone ===== */
+        @supports (padding: max(0px)) {
+            body {
+                padding-left: max(20px, env(safe-area-inset-left));
+                padding-right: max(20px, env(safe-area-inset-right));
+                padding-top: max(20px, env(safe-area-inset-top));
+                padding-bottom: max(20px, env(safe-area-inset-bottom));
+            }
         }
 
-        /* استایل جدول جزئیات */
-        .invoice-details-table {
-            width: 100%;
-            margin: 15px 0;
+        /* اسکرول نرم برای iOS */
+        .invoice-box {
+            -webkit-overflow-scrolling: touch;
         }
-        .invoice-details-table th,
-        .invoice-details-table td {
-            padding: 8px;
-            text-align: right;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+        /* حذف استایل پیش‌فرض اپل روی دکمه‌ها */
+        button,
+        input,
+        select {
+            -webkit-appearance: none;
+            appearance: none;
+            border-radius: 8px;
         }
-        .invoice-details-table th {
-            background-color: rgba(212, 175, 55, 0.1);
-            color: var(--gold-primary);
-            font-weight: bold;
+
+        /* بهبود readability در iOS */
+        select option {
+            background: #1e1e1e;
+            color: #fff;
         }
     </style>
 </head>
@@ -647,7 +715,6 @@
             document.getElementById('resTotal').innerText = Math.round(total).toLocaleString();
             document.getElementById('goldResultBox').style.display = 'block';
 
-            // ذخیره برای فاکتور
             lastGoldData = {
                 type: 'gold',
                 gold18Price,
@@ -724,30 +791,30 @@
             const dateStr = persianDate();
 
             const html = `
-                <div class="invoice-row"><span class="label">نوع عملیات:</span><span class="value">محاسبه و قیمت‌گذاری طلا</span></div>
-                <div class="invoice-row"><span class="label">تاریخ و ساعت:</span><span class="value">${dateStr}</span></div>
-                
-                <div class="divider-line"></div>
-                
-                <div class="invoice-row"><span class="label">📊 قیمت مبنای ۱۸ عیار:</span><span class="value">${Math.round(d.gold18Price).toLocaleString()} تومان/گرم</span></div>
-                <div class="invoice-row"><span class="label">💍 عیار طلا:</span><span class="value">${d.carat} عیار</span></div>
-                <div class="invoice-row"><span class="label">⚖️ وزن کل:</span><span class="value">${d.weight.toFixed(3)} گرم</span></div>
-                <div class="invoice-row"><span class="label">💵 قیمت هر گرم (عیار ${d.carat}):</span><span class="value">${Math.round(d.currentCaratPrice).toLocaleString()} تومان</span></div>
-                
-                <div class="divider-line"></div>
-                
-                <div class="invoice-row"><span class="label">📈 قیمت خام طلا:</span><span class="value"><strong>${Math.round(d.rawPrice).toLocaleString()}</strong> تومان</span></div>
-                
-                <div class="divider-line"></div>
-                
-                <div class="invoice-row"><span class="label">💼 اجرت ساخت (${d.wagePercent}%):</span><span class="value">${Math.round(d.wageAmount).toLocaleString()} تومان</span></div>
-                <div class="invoice-row"><span class="label">📊 سود طلافروش (${d.profitPercent}%):</span><span class="value">${Math.round(d.profitAmount).toLocaleString()} تومان</span></div>
-                <div class="invoice-row"><span class="label">🏛️ مالیات ارزش افزوده (${d.taxPercent}%):</span><span class="value">${Math.round(d.taxAmount).toLocaleString()} تومان</span></div>
-                
-                <div class="divider-line"></div>
-                
-                <div class="invoice-row total-row"><span class="label">💰 قیمت نهایی قطعه طلا:</span><span class="value">${Math.round(d.total).toLocaleString()} تومان</span></div>
-            `;
+                    <div class="invoice-row"><span class="label">نوع عملیات:</span><span class="value">محاسبه و قیمت‌گذاری طلا</span></div>
+                    <div class="invoice-row"><span class="label">تاریخ و ساعت:</span><span class="value">${dateStr}</span></div>
+
+                    <div class="divider-line"></div>
+
+                    <div class="invoice-row"><span class="label">📊 قیمت مبنای ۱۸ عیار:</span><span class="value">${Math.round(d.gold18Price).toLocaleString()} تومان/گرم</span></div>
+                    <div class="invoice-row"><span class="label">💍 عیار طلا:</span><span class="value">${d.carat} عیار</span></div>
+                    <div class="invoice-row"><span class="label">⚖️ وزن کل:</span><span class="value">${d.weight.toFixed(3)} گرم</span></div>
+                    <div class="invoice-row"><span class="label">💵 قیمت هر گرم (عیار ${d.carat}):</span><span class="value">${Math.round(d.currentCaratPrice).toLocaleString()} تومان</span></div>
+
+                    <div class="divider-line"></div>
+
+                    <div class="invoice-row"><span class="label">📈 قیمت خام طلا:</span><span class="value"><strong>${Math.round(d.rawPrice).toLocaleString()}</strong> تومان</span></div>
+
+                    <div class="divider-line"></div>
+
+                    <div class="invoice-row"><span class="label">💼 اجرت ساخت (${d.wagePercent}%):</span><span class="value">${Math.round(d.wageAmount).toLocaleString()} تومان</span></div>
+                    <div class="invoice-row"><span class="label">📊 سود طلافروش (${d.profitPercent}%):</span><span class="value">${Math.round(d.profitAmount).toLocaleString()} تومان</span></div>
+                    <div class="invoice-row"><span class="label">🏛️ مالیات ارزش افزوده (${d.taxPercent}%):</span><span class="value">${Math.round(d.taxAmount).toLocaleString()} تومان</span></div>
+
+                    <div class="divider-line"></div>
+
+                    <div class="invoice-row total-row"><span class="label">💰 قیمت نهایی قطعه طلا:</span><span class="value">${Math.round(d.total).toLocaleString()} تومان</span></div>
+                `;
 
             document.getElementById('invTitle').innerText = '📄 صورتحساب طلا';
             document.getElementById('invDate').innerText = `تاریخ: ${dateStr}`;
@@ -765,30 +832,30 @@
             const dateStr = persianDate();
 
             const html = `
-                <div class="invoice-row"><span class="label">نوع عملیات:</span><span class="value">محاسبه و قیمت‌گذاری سکه</span></div>
-                <div class="invoice-row"><span class="label">تاریخ و ساعت:</span><span class="value">${dateStr}</span></div>
-                
-                <div class="divider-line"></div>
-                
-                <div class="invoice-row"><span class="label">📊 قیمت مبنای ۱۸ عیار:</span><span class="value">${Math.round(d.gold18Price).toLocaleString()} تومان/گرم</span></div>
-                <div class="invoice-row"><span class="label">🪙 نوع سکه:</span><span class="value">${d.coinName}</span></div>
-                <div class="invoice-row"><span class="label">⚖️ وزن هر سکه:</span><span class="value">${d.coinWeight.toFixed(3)} گرم</span></div>
-                <div class="invoice-row"><span class="label">📊 تعداد:</span><span class="value">${d.coinCount} عدد</span></div>
-                <div class="invoice-row"><span class="label">📏 وزن کل:</span><span class="value">${d.totalWeight.toFixed(3)} گرم</span></div>
-                
-                <div class="divider-line"></div>
-                
-                <div class="invoice-row"><span class="label">💎 ارزش واقعی (عیار ۲۲):</span><span class="value"><strong>${Math.round(d.totalRealValue).toLocaleString()}</strong> تومان</span></div>
-                <div class="invoice-row"><span class="label">💵 قیمت فروش در بازار (هر عدد):</span><span class="value">${Math.round(d.coinMarketPrice).toLocaleString()} تومان</span></div>
-                
-                <div class="divider-line"></div>
-                
-                <div class="invoice-row"><span class="label">🔝 حباب هر سکه:</span><span class="value" style="color:#cf6679;font-weight:bold;">${Math.round(d.singleBubble).toLocaleString()} تومان</span></div>
-                
-                <div class="divider-line"></div>
-                
-                <div class="invoice-row total-row"><span class="label">💰 قیمت نهایی کل سکه‌ها:</span><span class="value">${Math.round(d.totalMarket).toLocaleString()} تومان</span></div>
-            `;
+                    <div class="invoice-row"><span class="label">نوع عملیات:</span><span class="value">محاسبه و قیمت‌گذاری سکه</span></div>
+                    <div class="invoice-row"><span class="label">تاریخ و ساعت:</span><span class="value">${dateStr}</span></div>
+
+                    <div class="divider-line"></div>
+
+                    <div class="invoice-row"><span class="label">📊 قیمت مبنای ۱۸ عیار:</span><span class="value">${Math.round(d.gold18Price).toLocaleString()} تومان/گرم</span></div>
+                    <div class="invoice-row"><span class="label">🪙 نوع سکه:</span><span class="value">${d.coinName}</span></div>
+                    <div class="invoice-row"><span class="label">⚖️ وزن هر سکه:</span><span class="value">${d.coinWeight.toFixed(3)} گرم</span></div>
+                    <div class="invoice-row"><span class="label">📊 تعداد:</span><span class="value">${d.coinCount} عدد</span></div>
+                    <div class="invoice-row"><span class="label">📏 وزن کل:</span><span class="value">${d.totalWeight.toFixed(3)} گرم</span></div>
+
+                    <div class="divider-line"></div>
+
+                    <div class="invoice-row"><span class="label">💎 ارزش واقعی (عیار ۲۲):</span><span class="value"><strong>${Math.round(d.totalRealValue).toLocaleString()}</strong> تومان</span></div>
+                    <div class="invoice-row"><span class="label">💵 قیمت فروش در بازار (هر عدد):</span><span class="value">${Math.round(d.coinMarketPrice).toLocaleString()} تومان</span></div>
+
+                    <div class="divider-line"></div>
+
+                    <div class="invoice-row"><span class="label">🔝 حباب هر سکه:</span><span class="value" style="color:#cf6679;font-weight:bold;">${Math.round(d.singleBubble).toLocaleString()} تومان</span></div>
+
+                    <div class="divider-line"></div>
+
+                    <div class="invoice-row total-row"><span class="label">💰 قیمت نهایی کل سکه‌ها:</span><span class="value">${Math.round(d.totalMarket).toLocaleString()} تومان</span></div>
+                `;
 
             document.getElementById('invTitle').innerText = '📄 صورتحساب سکه';
             document.getElementById('invDate').innerText = `تاریخ: ${dateStr}`;
@@ -826,7 +893,7 @@
         function downloadInvoicePDFModal() {
             const invoiceContent = document.getElementById('invoiceBox').cloneNode(true);
             invoiceContent.querySelector('.invoice-actions').remove();
-            
+
             const opt = {
                 margin: 10,
                 filename: `فاکتور_طلا_سکه_${new Date().getTime()}.pdf`,
@@ -844,7 +911,7 @@
             setTimeout(() => {
                 const invoiceContent = document.getElementById('invoiceBox').cloneNode(true);
                 invoiceContent.querySelector('.invoice-actions').remove();
-                
+
                 const opt = {
                     margin: 10,
                     filename: `فاکتور_طلا_${new Date().getTime()}.pdf`,
@@ -864,7 +931,7 @@
             setTimeout(() => {
                 const invoiceContent = document.getElementById('invoiceBox').cloneNode(true);
                 invoiceContent.querySelector('.invoice-actions').remove();
-                
+
                 const opt = {
                     margin: 10,
                     filename: `فاکتور_سکه_${new Date().getTime()}.pdf`,
@@ -883,7 +950,6 @@
             if (e.target === this) closeInvoice();
         });
 
-        // ===== مقداردهی اولیه =====
         console.log('✅ سامانه محاسبات طلا و سکه بارگذاری شد.');
     </script>
 </body>
