@@ -35,8 +35,6 @@ self.addEventListener('fetch', (event) => {
         caches.match(event.request)
             .then((response) => response || fetch(event.request))
             .catch(() => {
-                // در صورت قطع اینترنت، می‌توان یک صفحه آفلاین نمایش داد
-                // (اختیاری)
                 return new Response('صفحه مورد نظر در دسترس نیست.', {
                     status: 404,
                     statusText: 'Not Found'
