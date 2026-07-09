@@ -8,14 +8,14 @@
     <!-- PWA Manifest -->
     <link rel="manifest" href="manifest.json">
 
-    <!-- رنگ تم برای PWA (اختیاری) -->
+    <!-- رنگ‌های PWA -->
     <meta name="theme-color" content="#b8860b">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-    <!-- آیکون‌ها (برای PWA) -->
-    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='100' fill='%23b8860b'/%3E%3Ctext x='50%25' y='55%25' font-size='280' text-anchor='middle' dy='.35em' fill='white' font-family='Arial'%3E💰%3C/text%3E%3C/svg%3E">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='100' fill='%23b8860b'/%3E%3Ctext x='50%25' y='55%25' font-size='280' text-anchor='middle' dy='.35em' fill='white' font-family='Arial'%3E💰%3C/text%3E%3C/svg%3E">
+    <!-- آیکون‌ها (طراحی با حرف "ط" روی زمینه طلایی) -->
+    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='100' fill='%23b8860b'/%3E%3Ctext x='50%25' y='55%25' font-size='280' text-anchor='middle' dy='.35em' fill='white' font-family='Arial' font-weight='bold'%3E%D8%B7%3C/text%3E%3C/svg%3E">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='100' fill='%23b8860b'/%3E%3Ctext x='50%25' y='55%25' font-size='280' text-anchor='middle' dy='.35em' fill='white' font-family='Arial' font-weight='bold'%3E%D8%B7%3C/text%3E%3C/svg%3E">
 
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
@@ -366,7 +366,6 @@
             border-top: 2px dashed var(--gold-secondary);
         }
 
-        /* دکمه نصب PWA (فقط در صورت عدم نصب نمایش داده می‌شود) */
         #installBanner {
             display: none;
             background: var(--gold-primary);
@@ -450,7 +449,6 @@
     <div class="calculator-card">
         <h2>🏆 سامانه حرفه‌ای محاسبات طلا و سکه</h2>
 
-        <!-- دکمه نصب PWA (به‌صورت خودکار نمایش داده می‌شود) -->
         <button id="installBanner" onclick="installApp()">📲 نصب برنامه روی گوشی</button>
 
         <div class="form-group" style="background:rgba(184,134,11,0.08);padding:12px;border-radius:8px;border:1px solid rgba(184,134,11,0.3);">
@@ -571,10 +569,12 @@
     </div>
 
     <script>
-        // ========== کدهای اصلی برنامه (مشابه قبل) ==========
+        // ==================================================
+        //  بخش اصلی محاسبات (بدون تغییر)
+        // ==================================================
         let lastGoldData = null;
         let lastCoinData = null;
-        let deferredPrompt = null; // برای PWA
+        let deferredPrompt = null;
 
         function formatInput(input) {
             let value = input.value.replace(/,/g, '');
@@ -901,15 +901,15 @@
             if (e.target === this) closeInvoice();
         });
 
-        // ========== کدهای PWA ==========
-        // ثبت Service Worker
+        // ==================================================
+        //  بخش PWA (Service Worker و نصب)
+        // ==================================================
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('sw.js')
                 .then(() => console.log('✅ Service Worker ثبت شد.'))
                 .catch(err => console.error('❌ خطا در ثبت Service Worker:', err));
         }
 
-        // نمایش دکمه نصب (در صورت پشتیبانی)
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
