@@ -2,7 +2,7 @@
   "name": "ماشین حساب طلا و سکه",
   "short_name": "طلا و سکه",
   "description": "محاسبه قیمت طلا و سکه با در نظر گرفتن اجرت، سود و مالیات",
-  "start_url": "/index.html",
+  "start_url": ".",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#b8860b",
