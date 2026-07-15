@@ -528,7 +528,7 @@
             <button id="btnTabCoin" class="tab-btn" onclick="switchTab('coin')">🪙 سکه</button>
         </div>
 
-‎        <!-- بخش طلا -->
+        <!-- بخش طلا -->
         <div id="goldSection">
             <div class="row">
                 <div class="form-group">
@@ -592,7 +592,7 @@
             </div>
         </div>
 
-‎        <!-- بخش سکه -->
+        <!-- بخش سکه -->
         <div id="coinSection" style="display:none;">
             <div class="form-group">
                 <label for="coinType">نوع سکه</label>
@@ -646,7 +646,7 @@
         </div>
     </div>
 
-‎    <!-- مودال فاکتور -->
+    <!-- مودال فاکتور -->
     <div class="invoice-overlay" id="invoiceOverlay">
         <div class="invoice-box" id="invoiceBox">
             <h3 id="invTitle">صورتحساب</h3>
@@ -665,7 +665,7 @@
 
     <script>
         // ============================================================
-‎        //  بخش اصلی محاسبات + همه ویژگی‌های جدید
+        //  بخش اصلی محاسبات + همه ویژگی‌های جدید
         // ============================================================
 
         let lastGoldData = null;
@@ -673,7 +673,7 @@
         let deferredPrompt = null;
         let chartData = JSON.parse(localStorage.getItem('chartData')) || [];
 
-‎        // ---------- توابع کمکی ----------
+        // ---------- توابع کمکی ----------
         function formatInput(input) {
             let val = input.value.replace(/,/g, '');
             if (!isNaN(val) && val !== '') {
@@ -754,7 +754,7 @@
             t._timer = setTimeout(() => t.classList.remove('show'), 2500);
         }
 
-‎        // ---------- تم تیره/روشن ----------
+        // ---------- تم تیره/روشن ----------
         function toggleTheme() {
             const html = document.documentElement;
             const current = html.getAttribute('data-theme');
@@ -773,8 +773,8 @@
         })();
 
         // ============================================================
-‎        //  ✅ فرمول صحیح تخمین قیمت ۱۸ عیار از انس جهانی
-‎        //  = (قیمت انس × نرخ دلار) ÷ 31.1035 × 0.750
+        //  ✅ فرمول صحیح تخمین قیمت ۱۸ عیار از انس جهانی
+        //  = (قیمت انس × نرخ دلار) ÷ 31.1035 × 0.750
         // ============================================================
         function estimateFromOunce() {
             const ounce = getRawValue(document.getElementById('ouncePrice'));
@@ -782,14 +782,14 @@
             const usd = getUSD();
             if (!usd) { showToast('نرخ دلار را وارد کنید.'); return; }
 
-‎            // فرمول صحیح
+            // فرمول صحیح
             const estimated = (ounce * usd) / 31.1035 * 0.750;
 
             document.getElementById('globalGoldPrice').value = Math.round(estimated).toLocaleString();
             showToast('💰 قیمت ۱۸ عیار تخمین زده شد: ' + Math.round(estimated).toLocaleString() + ' تومان');
         }
 
-‎        // ---------- تاریخچه ----------
+        // ---------- تاریخچه ----------
         function toggleHistory() {
             const box = document.getElementById('historyBox');
             if (box.style.display === 'block') {
@@ -827,7 +827,7 @@
             localStorage.setItem('goldHistory', JSON.stringify(history));
         }
 
-‎        // ---------- پاک کردن همه ----------
+        // ---------- پاک کردن همه ----------
         function clearAll() {
             if (!confirm('همه فیلدها پاک شوند؟')) return;
             document.querySelectorAll('input:not([type="checkbox"]), select').forEach(el => {
@@ -858,7 +858,7 @@
             }
         }
 
-‎        // ---------- سوئیچ تب ----------
+        // ---------- سوئیچ تب ----------
         function switchTab(tab) {
             document.getElementById('goldSection').style.display = tab === 'gold' ? 'block' : 'none';
             document.getElementById('coinSection').style.display = tab === 'coin' ? 'block' : 'none';
@@ -882,7 +882,7 @@
             }
         }
 
-‎        // ---------- نمودار ----------
+        // ---------- نمودار ----------
         function updateChart(price) {
             chartData.push({ time: new Date().toLocaleTimeString('fa-IR'), price: Math.round(price) });
             if (chartData.length > 30) chartData.shift();
@@ -936,7 +936,7 @@
             }
         }
 
-‎        // ---------- محاسبه طلا ----------
+        // ---------- محاسبه طلا ----------
         function calculateGold() {
             const gold18Price = getGlobalPrice();
             if (!gold18Price) { showToast('⚠️ قیمت مبنا را وارد کنید.'); return; }
@@ -1000,7 +1000,7 @@
             document.getElementById('historyBox').style.display = 'none';
         }
 
-‎        // ---------- محاسبه سکه ----------
+        // ---------- محاسبه سکه ----------
         function calculateCoin() {
             const gold18Price = getGlobalPrice();
             if (!gold18Price) { showToast('⚠️ قیمت مبنا را وارد کنید.'); return; }
@@ -1057,7 +1057,7 @@
             document.getElementById('historyBox').style.display = 'none';
         }
 
-‎        // ---------- فاکتورها ----------
+        // ---------- فاکتورها ----------
         function showGoldInvoice() {
             if (!lastGoldData) { showToast('ابتدا محاسبه کنید.'); return; }
             const d = lastGoldData;
@@ -1114,7 +1114,7 @@
             document.getElementById('invoiceOverlay').classList.add('show');
         }
 
-‎        // ---------- عملیات فاکتور ----------
+        // ---------- عملیات فاکتور ----------
         function closeInvoice() {
             document.getElementById('invoiceOverlay').classList.remove('show');
         }
@@ -1204,7 +1204,7 @@
             }
         }
 
-‎        // ---------- بارگذاری اولیه ----------
+        // ---------- بارگذاری اولیه ----------
         window.addEventListener('load', () => {
             drawChart();
             document.getElementById('historyBox').style.display = 'none';
