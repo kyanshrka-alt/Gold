@@ -1,1614 +1,1457 @@
-<!DOCTYPE html>
-<html lang="fa" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>ماشین حساب طلا و سکه</title>
-    <base href="/">
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#b8860b">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <link rel="apple-touch-icon"
-    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='100' fill='%23b8860b'/%3E%3Ctext x='50%25' y='55%25' font-size='280' text-anchor='middle' dy='.35em' fill='white' font-family='Arial' font-weight='bold'%3E%D8%B7%3C/text%3E%3C/svg%3E">
-    <link rel="icon" type="image/svg+xml"
-    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='100' fill='%23b8860b'/%3E%3Ctext x='50%25' y='55%25' font-size='280' text-anchor='middle' dy='.35em' fill='white' font-family='Arial' font-weight='bold'%3E%D8%B7%3C/text%3E%3C/svg%3E">
-    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;700&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js">
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js">
-    </script>
-    <style>
-        :root {
-            --bg: #f5f7fa;
-            --card: #ffffff;
-            --text: #1e1e2f;
-            --border: #d0d0d0;
-            --input: #f0f2f5;
-            --gold: #b8860b;
-            --gold-dark: #8b6f0b;
-            --danger: #d32f2f;
-            --shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
-            --safe-bottom: env(safe-area-inset-bottom, 10px);
+‏<!DOCTYPE html>
+‏<html lang="fa" dir="rtl">
+‏<head>
+‏    <meta charset="UTF-8" />
+‏    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover" />
+‏    <title>ماشین حساب طلا و سکه</title>
+‏    <base href="/" />
+‏    <link rel="manifest" href="manifest.json" />
+‏    <meta name="theme-color" content="#b8860b" />
+‏    <meta name="apple-mobile-web-app-capable" content="yes" />
+‏    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+‏    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='100' fill='%23b8860b'/%3E%3Ctext x='50%25' y='55%25' font-size='280' text-anchor='middle' dy='.35em' fill='white' font-family='Arial' font-weight='bold'%3E%D8%B7%3C/text%3E%3C/svg%3E" />
+‏    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='100' fill='%23b8860b'/%3E%3Ctext x='50%25' y='55%25' font-size='280' text-anchor='middle' dy='.35em' fill='white' font-family='Arial' font-weight='bold'%3E%D8%B7%3C/text%3E%3C/svg%3E" />
+‏    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;700;900&display=swap" rel="stylesheet" />
+‏    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js">
+‏    </script>
+‏    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js">
+‏    </script>
+‏    <style>
+‏        /* ── Reset & Variables ── */
+‏        :root {
+‏            --bg: #f5f7fa;
+‏            --card: #ffffff;
+‏            --text: #1e1e2f;
+‏            --border: #d0d0d0;
+‏            --input: #f0f2f5;
+‏            --gold: #b8860b;
+‏            --gold-light: #d4a017;
+‏            --gold-dark: #8b6f0b;
+‏            --gold-glow: #f5d37c;
+‏            --danger: #d32f2f;
+‏            --shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+‏            --safe-bottom: env(safe-area-inset-bottom, 10px);
+‏            --radius: 16px;
         }
-        [data-theme="dark"] {
-            --bg: #121212;
-            --card: #1e1e2a;
-            --text: #e8e8f0;
-            --border: #3a3a4a;
-            --input: #2a2a3a;
-            --shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+‏        [data-theme="dark"] {
+‏            --bg: #121212;
+‏            --card: #1e1e2a;
+‏            --text: #e8e8f0;
+‏            --border: #3a3a4a;
+‏            --input: #2a2a3a;
+‏            --shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
         }
         * {
-            box-sizing: border-box;
-            font-family: 'Vazirmatn', Tahoma, sans-serif;
-            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
-            -webkit-tap-highlight-color: transparent;
+‏            box-sizing: border-box;
+‏            font-family: 'Vazirmatn', Tahoma, sans-serif;
+‏            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+‏            -webkit-tap-highlight-color: transparent;
         }
-        body {
-            background: var(--bg);
-            color: var(--text);
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            min-height: 100vh;
-            min-height: -webkit-fill-available;
-            margin: 0;
-            padding: 16px 12px;
-            padding-bottom: calc(20px + var(--safe-bottom));
-            -webkit-text-size-adjust: 100%;
-            -webkit-font-smoothing: antialiased;
+‏        body {
+‏            background: var(--bg);
+‏            color: var(--text);
+‏            display: flex;
+‏            justify-content: center;
+‏            align-items: flex-start;
+‏            min-height: 100vh;
+‏            margin: 0;
+‏            padding: 16px 12px;
+‏            padding-bottom: calc(20px + var(--safe-bottom));
+‏            -webkit-text-size-adjust: 100%;
         }
-        .calculator-card {
-            background: var(--card);
-            border: 1px solid var(--gold-dark);
-            border-radius: 20px;
-            box-shadow: var(--shadow);
-            width: 100%;
-            max-width: 560px;
-            padding: 20px 16px;
-            position: relative;
+
+‏        /* ── Main Card ── */
+‏        .calculator-card {
+‏            background: var(--card);
+‏            border: 1px solid var(--gold-dark);
+‏            border-radius: var(--radius);
+‏            box-shadow: var(--shadow);
+‏            width: 100%;
+‏            max-width: 560px;
+‏            padding: 20px 16px;
+‏            position: relative;
+‏            overflow: hidden;
         }
-        @media (min-width: 500px) {
-            .calculator-card {
-                padding: 25px 22px;
+‏        .calculator-card::before {
+‏            content: '';
+‏            position: absolute;
+‏            top: 0;
+‏            right: 0;
+‏            left: 0;
+‏            height: 4px;
+‏            background: linear-gradient(90deg, var(--gold), var(--gold-light), var(--gold-dark));
+        }
+
+‏        h2 {
+‏            text-align: center;
+‏            color: var(--gold);
+‏            margin: 0 0 12px;
+‏            font-size: 20px;
+‏            display: flex;
+‏            align-items: center;
+‏            justify-content: space-between;
+‏            flex-wrap: wrap;
+‏            gap: 8px;
+‏            font-weight: 900;
+        }
+‏        .top-actions {
+‏            display: flex;
+‏            gap: 8px;
+‏            flex-wrap: wrap;
+‏            margin-bottom: 14px;
+        }
+‏        .top-actions button {
+‏            flex: 1;
+‏            min-width: 55px;
+‏            padding: 8px 10px;
+‏            border: 1px solid var(--border);
+‏            border-radius: 10px;
+‏            background: var(--input);
+‏            color: var(--text);
+‏            font-weight: bold;
+‏            cursor: pointer;
+‏            font-size: 12px;
+‏            white-space: nowrap;
+‏            transition: 0.2s;
+        }
+‏        .top-actions button:hover,
+‏        .top-actions button:active {
+‏            background: var(--gold);
+‏            color: #fff;
+‏            border-color: var(--gold);
+        }
+
+‏        /* ── Tabs ── */
+‏        .tabs {
+‏            display: flex;
+‏            border-bottom: 2px solid var(--border);
+‏            margin-bottom: 18px;
+        }
+‏        .tab-btn {
+‏            flex: 1;
+‏            background: none;
+‏            border: none;
+‏            color: #888;
+‏            padding: 10px 8px;
+‏            font-size: 14px;
+‏            font-weight: bold;
+‏            cursor: pointer;
+‏            transition: 0.2s;
+        }
+‏        .tab-btn.active {
+‏            color: var(--gold);
+‏            border-bottom: 3px solid var(--gold);
+‏            margin-bottom: -2px;
+        }
+
+‏        /* ── Form ── */
+‏        .form-group {
+‏            margin-bottom: 12px;
+        }
+‏        label {
+‏            display: block;
+‏            margin-bottom: 4px;
+‏            font-size: 12px;
+‏            color: #888;
+‏            font-weight: 500;
+        }
+‏        input,
+‏        select {
+‏            width: 100%;
+‏            padding: 11px 10px;
+‏            background: var(--input);
+‏            border: 1px solid var(--border);
+‏            border-radius: 10px;
+‏            color: var(--text);
+‏            font-size: 14px;
+‏            min-height: 44px;
+‏            -webkit-appearance: none;
+‏            appearance: none;
+        }
+‏        input:focus,
+‏        select:focus {
+‏            outline: none;
+‏            border-color: var(--gold);
+‏            box-shadow: 0 0 0 3px rgba(184, 134, 11, 0.2);
+        }
+‏        input:disabled {
+‏            opacity: 0.5;
+‏            cursor: not-allowed;
+        }
+‏        select {
+‏            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M6 8L1 3h10z' fill='%23888'/%3E%3C/svg%3E");
+‏            background-repeat: no-repeat;
+‏            background-position: left 10px center;
+‏            padding-left: 28px;
+        }
+‏        .row {
+‏            display: flex;
+‏            gap: 10px;
+‏            flex-wrap: wrap;
+‏            align-items: stretch;
+        }
+‏        .row .form-group {
+‏            flex: 1;
+‏            min-width: 80px;
+‏            display: flex;
+‏            flex-direction: column;
+        }
+‏        .row .form-group input {
+‏            flex: 1;
+        }
+
+‏        .checkbox-group {
+‏            display: flex;
+‏            align-items: center;
+‏            justify-content: center;
+‏            gap: 8px;
+‏            margin-bottom: 14px;
+‏            background: rgba(0, 0, 0, 0.03);
+‏            padding: 12px 10px;
+‏            border-radius: 12px;
+‏            border: 1px solid var(--border);
+‏            flex-wrap: wrap;
+        }
+‏        .checkbox-group input[type="checkbox"] {
+‏            width: 22px;
+‏            height: 22px;
+‏            cursor: pointer;
+‏            accent-color: var(--gold);
+        }
+‏        .checkbox-group label {
+‏            margin: 0;
+‏            font-weight: bold;
+‏            cursor: pointer;
+‏            font-size: 14px;
+        }
+
+‏        .buyer-name-group {
+‏            margin-bottom: 14px;
+‏            background: rgba(184, 134, 11, 0.06);
+‏            padding: 10px 12px;
+‏            border-radius: 12px;
+‏            border: 1.5px dashed var(--gold);
+        }
+‏        .buyer-name-group label {
+‏            color: var(--gold-dark);
+‏            font-weight: bold;
+‏            font-size: 13px;
+        }
+
+‏        .calc-btn {
+‏            width: 100%;
+‏            padding: 13px;
+‏            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+‏            border: none;
+‏            border-radius: 12px;
+‏            color: #fff;
+‏            font-size: 16px;
+‏            font-weight: bold;
+‏            cursor: pointer;
+‏            min-height: 48px;
+‏            transition: 0.2s;
+‏            box-shadow: 0 4px 14px rgba(184, 134, 11, 0.3);
+        }
+‏        .calc-btn:active {
+‏            transform: scale(0.97);
+‏            opacity: 0.9;
+        }
+
+‏        /* ── Results ── */
+‏        .results {
+‏            margin-top: 16px;
+‏            background: var(--input);
+‏            border-radius: 14px;
+‏            padding: 14px 12px;
+‏            border: 1px dashed var(--border);
+‏            display: none;
+        }
+‏        .result-item {
+‏            display: flex;
+‏            justify-content: space-between;
+‏            padding: 7px 0;
+‏            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+‏            font-size: 13px;
+‏            flex-wrap: wrap;
+‏            gap: 4px;
+        }
+‏        .result-item.total {
+‏            font-size: 17px;
+‏            font-weight: bold;
+‏            color: var(--gold);
+‏            border-top: 2px solid var(--gold-dark);
+‏            padding-top: 10px;
+‏            margin-top: 4px;
+‏            border-bottom: none;
+        }
+‏        .bubble-text {
+‏            color: var(--danger) !important;
+‏            font-weight: bold;
+        }
+‏        .word-amount {
+‏            font-size: 12px;
+‏            color: var(--gold-dark);
+‏            background: rgba(184, 134, 11, 0.08);
+‏            padding: 2px 10px;
+‏            border-radius: 16px;
+‏            display: inline-block;
+        }
+
+‏        /* ── Action Row (only Invoice + Copy) ── */
+‏        .action-row {
+‏            display: flex;
+‏            gap: 6px;
+‏            margin-top: 12px;
+‏            flex-wrap: wrap;
+        }
+‏        .action-row button {
+‏            flex: 1;
+‏            min-width: 65px;
+‏            padding: 8px 6px;
+‏            border: none;
+‏            border-radius: 10px;
+‏            font-weight: bold;
+‏            cursor: pointer;
+‏            font-size: 12px;
+‏            min-height: 40px;
+‏            transition: 0.2s;
+        }
+‏        .action-row .btn-invoice {
+‏            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+‏            color: #fff;
+‏            box-shadow: 0 2px 8px rgba(184, 134, 11, 0.25);
+        }
+‏        .action-row .btn-invoice:active {
+‏            transform: scale(0.96);
+        }
+‏        .action-row .btn-copy {
+‏            background: #2e7d32;
+‏            color: #fff;
+        }
+‏        .action-row .btn-copy:active {
+‏            transform: scale(0.96);
+        }
+
+‏        .alert-banner {
+‏            background: var(--danger);
+‏            color: #fff;
+‏            padding: 10px;
+‏            border-radius: 10px;
+‏            text-align: center;
+‏            font-weight: bold;
+‏            margin-top: 10px;
+‏            display: none;
+‏            font-size: 13px;
+        }
+
+‏        /* ── History ── */
+‏        .history-box {
+‏            background: var(--input);
+‏            border-radius: 12px;
+‏            padding: 10px;
+‏            margin-top: 12px;
+‏            max-height: 250px;
+‏            overflow-y: auto;
+‏            border: 1px solid var(--border);
+‏            display: none;
+        }
+‏        .history-item {
+‏            display: flex;
+‏            justify-content: space-between;
+‏            align-items: center;
+‏            padding: 8px 6px;
+‏            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+‏            font-size: 12px;
+‏            cursor: pointer;
+‏            border-radius: 8px;
+‏            transition: background 0.2s;
+        }
+‏        .history-item:hover,
+‏        .history-item:active {
+‏            background: rgba(184, 134, 11, 0.08);
+        }
+‏        .history-item .hi-info {
+‏            flex: 1;
+‏            min-width: 140px;
+        }
+‏        .history-item .hi-actions {
+‏            display: flex;
+‏            gap: 4px;
+        }
+‏        .history-item button {
+‏            background: none;
+‏            border: none;
+‏            cursor: pointer;
+‏            font-size: 14px;
+‏            padding: 4px 8px;
+        }
+‏        .btn-view {
+‏            color: var(--gold-dark);
+‏            font-weight: bold;
+        }
+‏        .btn-del {
+‏            color: var(--danger);
+        }
+
+‏        /* ── Chart ── */
+‏        .chart-container {
+‏            margin-top: 14px;
+‏            background: var(--card);
+‏            border-radius: 12px;
+‏            padding: 8px;
+‏            border: 1px solid var(--border);
+        }
+‏        canvas#priceChart {
+‏            width: 100%;
+‏            height: 110px;
+‏            display: block;
+        }
+
+‏        /* ── Install Banner ── */
+‏        #installBanner {
+‏            display: none;
+‏            background: var(--gold);
+‏            color: #fff;
+‏            padding: 12px;
+‏            border-radius: 12px;
+‏            text-align: center;
+‏            font-weight: bold;
+‏            cursor: pointer;
+‏            width: 100%;
+‏            font-size: 15px;
+‏            margin-bottom: 16px;
+‏            border: none;
+        }
+
+‏        /* ── Toast ── */
+‏        .toast {
+‏            position: fixed;
+‏            bottom: 30px;
+‏            left: 50%;
+‏            transform: translateX(-50%);
+‏            background: #333;
+‏            color: #fff;
+‏            padding: 12px 24px;
+‏            border-radius: 40px;
+‏            font-size: 13px;
+‏            z-index: 9999;
+‏            opacity: 0;
+‏            transition: 0.4s;
+‏            pointer-events: none;
+‏            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+‏            max-width: 90vw;
+‏            text-align: center;
+        }
+‏        .toast.show {
+‏            opacity: 1;
+‏            pointer-events: auto;
+        }
+
+        /* ════════════════════════════════════════════════
+‏                   STYLISH INVOICE OVERLAY
+                   ════════════════════════════════════════════════ */
+‏        .invoice-overlay {
+‏            display: none;
+‏            position: fixed;
+‏            top: 0;
+‏            left: 0;
+‏            width: 100%;
+‏            height: 100%;
+‏            background: rgba(0, 0, 0, 0.65);
+‏            backdrop-filter: blur(6px);
+‏            -webkit-backdrop-filter: blur(6px);
+‏            z-index: 1000;
+‏            justify-content: center;
+‏            align-items: center;
+‏            padding: 16px;
+‏            direction: rtl;
+‏            animation: fadeIn 0.3s ease;
+        }
+‏        .invoice-overlay.show {
+‏            display: flex;
+        }
+
+‏        @keyframes fadeIn {
+‏            from {
+‏                opacity: 0;
+‏                transform: scale(0.96) translateY(12px);
             }
-        }
-        h2 {
-            text-align: center;
-            color: var(--gold);
-            margin: 0 0 12px 0;
-            font-size: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-        @media (min-width: 400px) {
-            h2 {
-                font-size: 22px;
-            }
-        }
-        .top-actions {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            margin-bottom: 14px;
-        }
-        .top-actions button {
-            flex: 1;
-            min-width: 55px;
-            padding: 8px 10px;
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            background: var(--input);
-            color: var(--text);
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 12px;
-            white-space: nowrap;
-        }
-        @media (min-width: 400px) {
-            .top-actions button {
-                font-size: 13px;
-                padding: 8px 14px;
-            }
-        }
-        .top-actions button:hover,
-        .top-actions button:active {
-            background: var(--gold);
-            color: #fff;
-            border-color: var(--gold);
-        }
-        .tabs {
-            display: flex;
-            border-bottom: 2px solid var(--border);
-            margin-bottom: 18px;
-        }
-        .tab-btn {
-            flex: 1;
-            background: none;
-            border: none;
-            color: #888;
-            padding: 10px 8px;
-            font-size: 14px;
-            font-weight: bold;
-            cursor: pointer;
-            -webkit-tap-highlight-color: transparent;
-        }
-        .tab-btn.active {
-            color: var(--gold);
-            border-bottom: 3px solid var(--gold);
-            margin-bottom: -2px;
-        }
-        .form-group {
-            margin-bottom: 12px;
-        }
-        label {
-            display: block;
-            margin-bottom: 4px;
-            font-size: 12px;
-            color: #888;
-            font-weight: 500;
-        }
-        input,
-        select {
-            width: 100%;
-            padding: 11px 10px;
-            background: var(--input);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            color: var(--text);
-            font-size: 14px;
-            -webkit-appearance: none;
-            appearance: none;
-            min-height: 44px;
-        }
-        input:focus,
-        select:focus {
-            outline: none;
-            border-color: var(--gold);
-            box-shadow: 0 0 0 3px rgba(184, 134, 11, 0.2);
-        }
-        input:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-        select {
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M6 8L1 3h10z' fill='%23888'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: left 10px center;
-            padding-left: 28px;
-        }
-        .row {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            align-items: stretch;
-        }
-        .row .form-group {
-            flex: 1;
-            min-width: 80px;
-            display: flex;
-            flex-direction: column;
-        }
-        .row .form-group input {
-            flex: 1;
-        }
-        @media (max-width: 380px) {
-            .row .form-group {
-                min-width: 70px;
-            }
-            .row {
-                gap: 6px;
-            }
-            input,
-            select {
-                padding: 10px 7px;
-                font-size: 13px;
-            }
-        }
-        .checkbox-group {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            margin-bottom: 14px;
-            background-color: rgba(0, 0, 0, 0.03);
-            padding: 12px 10px;
-            border-radius: 12px;
-            border: 1px solid var(--border);
-            text-align: center;
-            flex-wrap: wrap;
-        }
-        .checkbox-group input[type="checkbox"] {
-            width: 22px;
-            height: 22px;
-            min-height: 22px;
-            margin: 0;
-            cursor: pointer;
-            accent-color: var(--gold);
-            flex-shrink: 0;
-        }
-        .checkbox-group label {
-            margin: 0;
-            font-weight: bold;
-            cursor: pointer;
-            color: var(--text);
-            font-size: 14px;
-            line-height: 1.5;
-        }
-        .buyer-name-group {
-            margin-bottom: 14px;
-            background-color: rgba(184, 134, 11, 0.04);
-            padding: 10px 12px;
-            border-radius: 12px;
-            border: 1px dashed var(--gold);
-        }
-        .buyer-name-group label {
-            color: var(--gold-dark);
-            font-weight: bold;
-            font-size: 13px;
-            margin-bottom: 5px;
-        }
-        .calc-btn {
-            width: 100%;
-            padding: 13px;
-            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-            border: none;
-            border-radius: 12px;
-            color: #fff;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.2s;
-            margin-top: 4px;
-            min-height: 48px;
-            -webkit-tap-highlight-color: transparent;
-        }
-        .calc-btn:active {
-            transform: scale(0.97);
-            opacity: 0.9;
-        }
-        .results {
-            margin-top: 16px;
-            background: var(--input);
-            border-radius: 14px;
-            padding: 14px 12px;
-            border: 1px dashed var(--border);
-            display: none;
-        }
-        .result-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 7px 0;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-            font-size: 13px;
-            flex-wrap: wrap;
-            gap: 4px;
-        }
-        @media (min-width: 400px) {
-            .result-item {
-                font-size: 14px;
-            }
-        }
-        .result-item.total {
-            font-size: 17px;
-            font-weight: bold;
-            color: var(--gold);
-            border-top: 2px solid var(--gold-dark);
-            padding-top: 10px;
-            margin-top: 4px;
-            border-bottom: none;
-        }
-        .bubble-text {
-            color: var(--danger) !important;
-            font-weight: bold;
-        }
-        .action-row {
-            display: flex;
-            gap: 6px;
-            margin-top: 12px;
-            flex-wrap: wrap;
-        }
-        .action-row button {
-            flex: 1;
-            min-width: 65px;
-            padding: 8px 6px;
-            border: none;
-            border-radius: 10px;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 11px;
-            min-height: 40px;
-            -webkit-tap-highlight-color: transparent;
-        }
-        @media (min-width: 400px) {
-            .action-row button {
-                font-size: 12px;
-                padding: 9px 8px;
-            }
-        }
-        .action-row .btn-invoice {
-            background: var(--gold-dark);
-            color: #fff;
-            border: 1px solid var(--gold-dark);
-        }
-        .action-row .btn-pdf {
-            background: #c62828;
-            color: #fff;
-        }
-        .action-row .btn-print {
-            background: #0d47a1;
-            color: #fff;
-        }
-        .action-row .btn-copy {
-            background: #2e7d32;
-            color: #fff;
-        }
-        .action-row .btn-png {
-            background: #e65100;
-            color: #fff;
-        }
-        .invoice-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-            padding: 16px;
-            direction: rtl;
-        }
-        .invoice-overlay.show {
-            display: flex;
-        }
-        .invoice-box {
-            background: #fff;
-            color: #1e1e2f;
-            max-width: 600px;
-            width: 100%;
-            max-height: 85vh;
-            overflow-y: auto;
-            padding: 20px 16px;
-            border-radius: 16px;
-            border: 2px solid var(--gold-dark);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
-            position: relative;
-            -webkit-overflow-scrolling: touch;
-        }
-        @media (min-width: 500px) {
-            .invoice-box {
-                padding: 28px 22px;
-            }
-        }
-        [data-theme="dark"] .invoice-box {
-            background: #1e1e2a;
-            color: #e8e8f0;
-        }
-        .invoice-box h3 {
-            text-align: center;
-            color: #b8860b;
-            font-size: 20px;
-            border-bottom: 2px solid #8b6f0b;
-            padding-bottom: 10px;
-            margin: 0 0 4px 0;
-        }
-        .invoice-box .sub-title {
-            text-align: center;
-            font-size: 12px;
-            color: #777;
-            margin-bottom: 16px;
-        }
-        .invoice-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 6px 0;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-            font-size: 13px;
-            flex-wrap: wrap;
-            gap: 4px;
-        }
-        .invoice-row.total-row {
-            font-size: 18px;
-            font-weight: bold;
-            color: #b8860b;
-            border-top: 3px solid #8b6f0b;
-            border-bottom: none;
-            padding-top: 12px;
-            margin-top: 6px;
-        }
-        .invoice-row .label {
-            color: #888;
-            flex-shrink: 0;
-        }
-        .invoice-row .value {
-            font-weight: 500;
-            text-align: left;
-        }
-        .invoice-actions {
-            display: flex;
-            gap: 8px;
-            margin-top: 20px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        .invoice-actions button {
-            padding: 10px 16px;
-            border: none;
-            border-radius: 10px;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 13px;
-            min-height: 42px;
-            -webkit-tap-highlight-color: transparent;
-        }
-        .invoice-actions .btn-close-inv {
-            background: #ccc;
-            color: #222;
-        }
-        .invoice-actions .btn-pdf-inv {
-            background: #c62828;
-            color: #fff;
-        }
-        .invoice-actions .btn-print-inv {
-            background: #0d47a1;
-            color: #fff;
-        }
-        .invoice-actions .btn-png-inv {
-            background: #e65100;
-            color: #fff;
-        }
-        .divider-line {
-            margin: 12px 0;
-            border-top: 2px dashed #8b6f0b;
-        }
-        #installBanner {
-            display: none;
-            background: var(--gold);
-            color: #fff;
-            padding: 12px;
-            border-radius: 12px;
-            text-align: center;
-            font-weight: bold;
-            cursor: pointer;
-            border: none;
-            width: 100%;
-            font-size: 15px;
-            margin-bottom: 16px;
-            min-height: 46px;
-        }
-        .toast {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #333;
-            color: #fff;
-            padding: 12px 24px;
-            border-radius: 40px;
-            font-size: 13px;
-            z-index: 9999;
-            opacity: 0;
-            transition: 0.4s;
-            pointer-events: none;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-            max-width: 90vw;
-            text-align: center;
-        }
-        .toast.show {
-            opacity: 1;
-            pointer-events: auto;
-        }
-        .history-box {
-            background: var(--input);
-            border-radius: 12px;
-            padding: 10px;
-            margin-top: 12px;
-            max-height: 250px;
-            overflow-y: auto;
-            border: 1px solid var(--border);
-            display: none;
-            -webkit-overflow-scrolling: touch;
-        }
-        .history-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 8px 6px;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-            font-size: 12px;
-            flex-wrap: wrap;
-            gap: 6px;
-            cursor: pointer;
-            border-radius: 8px;
-            transition: background 0.2s;
-        }
-        .history-item:hover,
-        .history-item:active {
-            background: rgba(184, 134, 11, 0.08);
-        }
-        .history-item .hi-info {
-            flex: 1;
-            min-width: 140px;
-        }
-        .history-item .hi-actions {
-            display: flex;
-            gap: 4px;
-            flex-shrink: 0;
-        }
-        .history-item button {
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 14px;
-            padding: 4px 8px;
-            border-radius: 6px;
-            min-height: 32px;
-            -webkit-tap-highlight-color: transparent;
-        }
-        .history-item .btn-view {
-            color: var(--gold-dark);
-            font-weight: bold;
-        }
-        .history-item .btn-del {
-            color: var(--danger);
-        }
-        .chart-container {
-            margin-top: 14px;
-            background: var(--card);
-            border-radius: 12px;
-            padding: 8px;
-            border: 1px solid var(--border);
-            overflow: hidden;
-        }
-        canvas#priceChart {
-            width: 100%;
-            height: 110px;
-            display: block;
-        }
-        .alert-banner {
-            background: var(--danger);
-            color: #fff;
-            padding: 10px;
-            border-radius: 10px;
-            text-align: center;
-            font-weight: bold;
-            margin-top: 10px;
-            display: none;
-            font-size: 13px;
-        }
-        .word-amount {
-            font-size: 12px;
-            color: var(--gold);
-            font-weight: 400;
-            background: var(--card);
-            padding: 3px 10px;
-            border-radius: 20px;
-            border: 1px dashed var(--gold);
-            display: inline-block;
-        }
-        @media print {
-            body>*:not(.invoice-overlay) {
-                display: none !important;
-            }
-            .invoice-overlay {
-                position: static !important;
-                width: 100% !important;
-                height: auto !important;
-                background: #fff !important;
-                backdrop-filter: none !important;
-                -webkit-backdrop-filter: none !important;
-                display: block !important;
-                padding: 0 !important;
-            }
-            .invoice-box {
-                border: 1px solid #ccc !important;
-                box-shadow: none !important;
-                max-height: none !important;
-                overflow: visible !important;
-                background: #fff !important;
-                color: #000 !important;
-                border-radius: 0 !important;
-                width: 100% !important;
-                max-width: 100% !important;
-            }
-            .invoice-actions {
-                display: none !important;
-            }
-            .invoice-overlay .btn-close-inv,
-            .invoice-overlay .btn-pdf-inv,
-            .invoice-overlay .btn-print-inv,
-            .invoice-overlay .btn-png-inv {
-                display: none !important;
-            }
-        }
-    </style>
-</head>
-<body>
-
-    <div class="calculator-card" id="app">
-        <h2>
-            <span>🏆 سامانه طلا</span>
-            <span style="font-size:15px;display:flex;gap:4px;">
-                <button onclick="toggleTheme()" style="background:none;border:none;font-size:22px;cursor:pointer;padding:4px 8px;min-height:36px;" aria-label="تغییر تم">🌓</button>
-                <button onclick="clearAll()" style="background:none;border:none;font-size:22px;cursor:pointer;padding:4px 8px;min-height:36px;" aria-label="پاک کردن">🔄</button>
-            </span>
-        </h2>
-
-        <button id="installBanner" onclick="installApp()">📲 نصب برنامه روی گوشی</button>
-
-        <div class="top-actions">
-            <button onclick="toggleHistory()" id="btnHistory">📜 تاریخچه</button>
-            <button onclick="showHelp()">❓ راهنما</button>
-        </div>
-
-        <div class="history-box" id="historyBox"></div>
-
-        <div class="row">
-            <div class="form-group">
-                <label for="globalGoldPrice">📊 قیمت ۱۸ عیار (تومان)</label>
-                <input type="text" id="globalGoldPrice" placeholder="مثلاً 4,500,000" onkeyup="formatInput(this)" inputmode="numeric">
-            </div>
-            <div class="form-group">
-                <label for="usdRate">💵 نرخ دلار (تومان)</label>
-                <input type="text" id="usdRate" placeholder="مثلاً 60,000" onkeyup="formatInput(this)" value="60,000" inputmode="numeric">
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="ouncePrice">🌍 قیمت انس طلا (دلار) — برای تخمین خودکار ۱۸ عیار</label>
-            <input type="text" id="ouncePrice" placeholder="مثلاً 2,400" onkeyup="formatInput(this)" value="2,400" inputmode="numeric">
-            <button onclick="estimateFromOunce()" style="margin-top:6px;padding:8px 14px;background:var(--gold);color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:bold;min-height:40px;width:100%;">🔮 تخمین قیمت ۱۸ عیار از انس</button>
-        </div>
-
-        <div class="buyer-name-group">
-            <label for="buyerName">👤 نام خریدار (در فاکتور نمایش داده می‌شود)</label>
-            <input type="text" id="buyerName" placeholder="مثلاً علی محمدی" style="text-align:center;font-weight:bold;">
-        </div>
-
-        <div class="tabs">
-            <button id="btnTabGold" class="tab-btn active" onclick="switchTab('gold')">💍 طلا</button>
-            <button id="btnTabCoin" class="tab-btn" onclick="switchTab('coin')">🪙 سکه</button>
-        </div>
-
-        <!-- بخش طلا -->
-        <div id="goldSection">
-            <div class="row">
-                <div class="form-group">
-                    <label for="caratSelect">عیار طلا</label>
-                    <select id="caratSelect">
-                        <option value="18">۱۸ عیار (۷۵۰‰)</option>
-                        <option value="21">۲۱ عیار (۸۷۵‰)</option>
-                        <option value="24">۲۴ عیار (۹۹۵‰)</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="weight">وزن (گرم)</label>
-                    <input type="number" id="weight" step="0.001" placeholder="مثلاً 4.250" inputmode="decimal">
-                </div>
-            </div>
-
-            <div class="checkbox-group">
-                <input type="checkbox" id="isSecondHand" onchange="toggleSecondHand(this)">
-                <label for="isSecondHand">♻️ طلای دست دوم (بدون اجرت و مالیات)</label>
-            </div>
-
-            <div class="row">
-                <div class="form-group">
-                    <label for="wage">اجرت ساخت (%)</label>
-                    <input type="number" id="wage" value="15" step="0.1" inputmode="decimal">
-                </div>
-                <div class="form-group">
-                    <label for="profit">سود فروشنده (%)</label>
-                    <input type="number" id="profit" value="7" step="0.1" inputmode="decimal">
-                </div>
-                <div class="form-group">
-                    <label for="tax">مالیات (%)</label>
-                    <input type="number" id="tax" value="9" step="0.1" inputmode="decimal">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="alertThreshold">🚨 هشدار اگر قیمت نهایی از (تومان) بیشتر شد</label>
-                <input type="text" id="alertThreshold" placeholder="مثلاً 5,000,000" onkeyup="formatInput(this)" inputmode="numeric">
-            </div>
-
-            <button class="calc-btn" onclick="calculateGold()">🧮 محاسبه قیمت طلا</button>
-
-            <div class="results" id="goldResultBox">
-                <div class="result-item"><span>قیمت هر گرم (عیار انتخابی)</span><span><span id="resConvertPrice">۰</span> تومان</span></div>
-                <div class="result-item"><span>قیمت خام وزن کل</span><span><span id="resRawGold">۰</span> تومان</span></div>
-                <div class="result-item"><span>💼 اجرت ساخت</span><span><span id="resWage">۰</span> تومان</span></div>
-                <div class="result-item"><span>📈 سود طلافروش</span><span><span id="resProfit">۰</span> تومان</span></div>
-                <div class="result-item"><span>🏛️ مالیات</span><span><span id="resTax">۰</span> تومان</span></div>
-                <div class="result-item total"><span>💰 قیمت نهایی</span><span><span id="resTotal">۰</span> تومان</span></div>
-                <div class="result-item"><span>💵 معادل دلار</span><span><span id="resTotalUSD">۰</span> دلار</span></div>
-                <div class="result-item"><span>🔤 به حروف</span><span class="word-amount" id="resWords">۰</span></div>
-                <div class="alert-banner" id="alertBanner">⚠️ قیمت از حد تعیین‌شده بیشتر است!</div>
-
-                <div class="action-row">
-                    <button class="btn-invoice" onclick="showGoldInvoice()">📄 فاکتور</button>
-                    <button class="btn-pdf" onclick="downloadGoldPDF()">📥 PDF</button>
-                    <button class="btn-png" onclick="downloadGoldPNG()">🖼️ PNG</button>
-                    <button class="btn-print" onclick="printInvoice()">🖨️ پرینت</button>
-                    <button class="btn-copy" onclick="copyResult()">📋 کپی</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- بخش سکه -->
-        <div id="coinSection" style="display:none;">
-            <div class="form-group">
-                <label for="coinType">نوع سکه</label>
-                <select id="coinType">
-                    <option value="emami" data-weight="8.133">سکه امامی (تمام) - ۸.۱۳۳ گرم</option>
-                    <option value="bahar" data-weight="8.133">سکه بهار آزادی (قدیم) - ۸.۱۳۳ گرم</option>
-                    <option value="nim" data-weight="4.066">نیم سکه - ۴.۰۶۶ گرم</option>
-                    <option value="rob" data-weight="2.033">ربع سکه - ۲.۰۳۳ گرم</option>
-                    <option value="grami" data-weight="1.017">سکه گرمی - ۱.۰۱۷ گرم</option>
-                </select>
-            </div>
-
-            <div class="row">
-                <div class="form-group">
-                    <label for="coinMarketPrice">قیمت فروش روز (تومان)</label>
-                    <input type="text" id="coinMarketPrice" placeholder="مثلاً 50,000,000" onkeyup="formatInput(this)" inputmode="numeric">
-                </div>
-                <div class="form-group" style="max-width:110px;">
-                    <label for="coinCount">تعداد</label>
-                    <input type="number" id="coinCount" value="1" min="1" inputmode="numeric">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="alertThresholdCoin">🚨 هشدار اگر حباب از (تومان) بیشتر شد</label>
-                <input type="text" id="alertThresholdCoin" placeholder="مثلاً 2,000,000" onkeyup="formatInput(this)" inputmode="numeric">
-            </div>
-
-            <button class="calc-btn" onclick="calculateCoin()">🧮 محاسبه قیمت سکه</button>
-
-            <div class="results" id="coinResultBox">
-                <div class="result-item"><span>وزن کل سکه‌ها</span><span><span id="resCoinWeight">۰</span> گرم</span></div>
-                <div class="result-item"><span>ارزش واقعی (عیار ۲۲)</span><span><span id="resCoinRealValue">۰</span> تومان</span></div>
-                <div class="result-item"><span>حباب هر عدد</span><span class="bubble-text"><span id="resCoinSingleBubble">۰</span> تومان</span></div>
-                <div class="result-item total"><span>💰 قیمت نهایی کل</span><span><span id="resCoinTotal">۰</span> تومان</span></div>
-                <div class="result-item"><span>💵 معادل دلار</span><span><span id="resCoinTotalUSD">۰</span> دلار</span></div>
-                <div class="result-item"><span>🔤 به حروف</span><span class="word-amount" id="resCoinWords">۰</span></div>
-                <div class="alert-banner" id="alertBannerCoin">⚠️ حباب از حد تعیین‌شده بیشتر است!</div>
-
-                <div class="action-row">
-                    <button class="btn-invoice" onclick="showCoinInvoice()">📄 فاکتور</button>
-                    <button class="btn-pdf" onclick="downloadCoinPDF()">📥 PDF</button>
-                    <button class="btn-png" onclick="downloadCoinPNG()">🖼️ PNG</button>
-                    <button class="btn-print" onclick="printInvoice()">🖨️ پرینت</button>
-                    <button class="btn-copy" onclick="copyResult()">📋 کپی</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="chart-container">
-            <canvas id="priceChart" height="110"></canvas>
-        </div>
-    </div>
-
-    <!-- مودال فاکتور -->
-    <div class="invoice-overlay" id="invoiceOverlay">
-        <div class="invoice-box" id="invoiceBox">
-            <h3 id="invTitle">صورتحساب</h3>
-            <div class="sub-title" id="invDate"></div>
-            <div id="invoiceContent"></div>
-            <div class="invoice-actions" id="invoiceModalActions">
-                <button class="btn-close-inv" onclick="closeInvoice()">✖️ بستن</button>
-                <button class="btn-pdf-inv" onclick="downloadInvoicePDFModal()">📥 PDF</button>
-                <button class="btn-png-inv" onclick="downloadInvoicePNGModal()">🖼️ PNG</button>
-                <button class="btn-print-inv" onclick="printInvoiceModal()">🖨️ پرینت</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="toast" id="toast"></div>
-
-    <script>
-        // ============================================================
-        //  متغیرهای سراسری
-        // ============================================================
-        let lastGoldData = null;
-        let lastCoinData = null;
-        let deferredPrompt = null;
-        let chartData = [];
-        let currentInvoiceType = 'gold';
-
-        try {
-            const saved = localStorage.getItem('chartData');
-            if (saved) {
-                const parsed = JSON.parse(saved);
-                if (Array.isArray(parsed)) chartData = parsed.slice(-30);
-            }
-        } catch (e) { chartData = []; }
-
-        // ============================================================
-        //  توابع کمکی
-        // ============================================================
-        function formatInput(input) {
-            let val = input.value.replace(/,/g, '');
-            if (!isNaN(val) && val !== '' && val !== '-') {
-                input.value = Number(val).toLocaleString();
+‏            to {
+‏                opacity: 1;
+‏                transform: scale(1) translateY(0);
             }
         }
 
-        function getRawValue(input) {
-            return parseFloat(input.value.replace(/,/g, '')) || 0;
+‏        .invoice-box {
+‏            background: #ffffff;
+‏            color: #1e1e2f;
+‏            max-width: 620px;
+‏            width: 100%;
+‏            max-height: 92vh;
+‏            overflow-y: auto;
+‏            border-radius: 24px;
+‏            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+‏            padding: 0;
+‏            position: relative;
+‏            -webkit-overflow-scrolling: touch;
+‏            border: 1px solid rgba(184, 134, 11, 0.2);
+        }
+‏        [data-theme="dark"] .invoice-box {
+‏            background: #1a1a2a;
+‏            color: #e8e8f0;
+‏            border-color: rgba(184, 134, 11, 0.3);
         }
 
-        function getGlobalPrice() {
-            return getRawValue(document.getElementById('globalGoldPrice'));
+‏        /* ── Invoice Header ── */
+‏        .invoice-header {
+‏            background: linear-gradient(135deg, #b8860b, #8b6f0b);
+‏            color: #fff;
+‏            padding: 28px 30px 22px;
+‏            border-radius: 24px 24px 0 0;
+‏            text-align: center;
+‏            position: relative;
+‏            overflow: hidden;
+        }
+‏        .invoice-header::after {
+‏            content: '✦';
+‏            position: absolute;
+‏            bottom: -20px;
+‏            left: -10px;
+‏            font-size: 120px;
+‏            opacity: 0.08;
+‏            color: #fff;
+‏            transform: rotate(-12deg);
+        }
+‏        .invoice-header .inv-logo {
+‏            font-size: 32px;
+‏            display: block;
+‏            margin-bottom: 4px;
+        }
+‏        .invoice-header h3 {
+‏            font-size: 26px;
+‏            margin: 0 0 4px;
+‏            font-weight: 900;
+‏            letter-spacing: 1px;
+‏            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+‏        .invoice-header .inv-sub {
+‏            font-size: 13px;
+‏            opacity: 0.85;
+‏            font-weight: 300;
+        }
+‏        .invoice-header .buyer-badge {
+‏            display: inline-block;
+‏            background: rgba(255, 255, 255, 0.2);
+‏            padding: 8px 28px;
+‏            border-radius: 40px;
+‏            font-size: 18px;
+‏            font-weight: 700;
+‏            margin-top: 10px;
+‏            backdrop-filter: blur(4px);
+‏            border: 1px solid rgba(255, 255, 255, 0.15);
+‏            letter-spacing: 0.5px;
+        }
+‏        .invoice-header .buyer-badge::before {
+‏            content: '👤 ';
         }
 
-        function getUSD() {
-            return getRawValue(document.getElementById('usdRate'));
+‏        /* ── Invoice Body ── */
+‏        .invoice-body {
+‏            padding: 24px 26px 20px;
         }
 
-        function getBuyerName() {
-            return document.getElementById('buyerName').value.trim() || 'مشتری';
+‏        .inv-meta {
+‏            display: flex;
+‏            justify-content: space-between;
+‏            font-size: 12px;
+‏            color: #888;
+‏            padding-bottom: 14px;
+‏            border-bottom: 1.5px dashed rgba(184, 134, 11, 0.2);
+‏            margin-bottom: 14px;
+‏            flex-wrap: wrap;
+‏            gap: 6px;
+        }
+‏        .inv-meta span {
+‏            display: flex;
+‏            align-items: center;
+‏            gap: 4px;
         }
 
-        function persianDate() {
-            const d = new Date();
-            try {
-                return d.toLocaleDateString('fa-IR', {
-                    weekday: 'long',
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit'
+‏        .invoice-row {
+‏            display: flex;
+‏            justify-content: space-between;
+‏            padding: 8px 0;
+‏            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+‏            font-size: 14px;
+‏            flex-wrap: wrap;
+‏            gap: 6px;
+‏            align-items: center;
+        }
+‏        [data-theme="dark"] .invoice-row {
+‏            border-bottom-color: rgba(255, 255, 255, 0.06);
+        }
+‏        .invoice-row .label {
+‏            color: #666;
+‏            font-weight: 500;
+‏            font-size: 13px;
+        }
+‏        [data-theme="dark"] .invoice-row .label {
+‏            color: #aaa;
+        }
+‏        .invoice-row .value {
+‏            font-weight: 600;
+‏            text-align: left;
+‏            font-size: 14px;
+        }
+
+‏        .invoice-row.total-row {
+‏            font-size: 20px;
+‏            font-weight: 900;
+‏            color: #b8860b;
+‏            border-top: 3px solid #b8860b;
+‏            border-bottom: none;
+‏            padding-top: 16px;
+‏            margin-top: 10px;
+‏            background: rgba(184, 134, 11, 0.04);
+‏            border-radius: 8px;
+‏            padding: 14px 16px;
+‏            margin-bottom: 4px;
+        }
+‏        [data-theme="dark"] .invoice-row.total-row {
+‏            background: rgba(184, 134, 11, 0.08);
+        }
+
+‏        .inv-divider {
+‏            margin: 14px 0;
+‏            border-top: 2px dotted rgba(184, 134, 11, 0.25);
+‏            opacity: 0.6;
+        }
+
+‏        .word-amount-invoice {
+‏            font-size: 13px;
+‏            color: #8b6f0b;
+‏            background: rgba(184, 134, 11, 0.07);
+‏            padding: 4px 16px;
+‏            border-radius: 20px;
+‏            display: inline-block;
+‏            font-weight: 500;
+        }
+‏        [data-theme="dark"] .word-amount-invoice {
+‏            color: #d4a017;
+‏            background: rgba(184, 134, 11, 0.12);
+        }
+
+‏        /* ── Invoice Footer Actions ── */
+‏        .invoice-actions {
+‏            display: flex;
+‏            gap: 8px;
+‏            padding: 16px 22px 22px;
+‏            background: #f8f8f8;
+‏            border-top: 1px solid #e0e0e0;
+‏            border-radius: 0 0 24px 24px;
+‏            justify-content: center;
+‏            flex-wrap: wrap;
+        }
+‏        [data-theme="dark"] .invoice-actions {
+‏            background: #222235;
+‏            border-top-color: #333;
+        }
+‏        .invoice-actions button {
+‏            padding: 10px 18px;
+‏            border: none;
+‏            border-radius: 10px;
+‏            font-weight: 700;
+‏            cursor: pointer;
+‏            font-size: 13px;
+‏            transition: 0.2s;
+‏            min-width: 70px;
+        }
+‏        .invoice-actions button:active {
+‏            transform: scale(0.95);
+        }
+‏        .btn-close-inv {
+‏            background: #ccc;
+‏            color: #222;
+        }
+‏        [data-theme="dark"] .btn-close-inv {
+‏            background: #444;
+‏            color: #fff;
+        }
+‏        .btn-pdf-inv {
+‏            background: #c62828;
+‏            color: #fff;
+        }
+‏        .btn-pdf-inv:hover {
+‏            background: #b71c1c;
+        }
+‏        .btn-print-inv {
+‏            background: #0d47a1;
+‏            color: #fff;
+        }
+‏        .btn-print-inv:hover {
+‏            background: #0a3a7a;
+        }
+‏        .btn-png-inv {
+‏            background: #e65100;
+‏            color: #fff;
+        }
+‏        .btn-png-inv:hover {
+‏            background: #c94a00;
+        }
+
+‏        /* ── Print Styles ── */
+‏        @media print {
+‏            body>*:not(.invoice-overlay) {
+‏                display: none !important;
+            }
+‏            .invoice-overlay {
+‏                position: static !important;
+‏                width: 100% !important;
+‏                height: auto !important;
+‏                background: #fff !important;
+‏                backdrop-filter: none !important;
+‏                display: block !important;
+‏                padding: 0 !important;
+‏                animation: none !important;
+            }
+‏            .invoice-box {
+‏                border: 1px solid #ccc !important;
+‏                box-shadow: none !important;
+‏                max-height: none !important;
+‏                overflow: visible !important;
+‏                background: #fff !important;
+‏                color: #000 !important;
+‏                border-radius: 0 !important;
+‏                width: 100% !important;
+‏                max-width: 100% !important;
+            }
+‏            .invoice-header {
+‏                background: #b8860b !important;
+‏                -webkit-print-color-adjust: exact;
+‏                print-color-adjust: exact;
+            }
+‏            .invoice-header::after {
+‏                display: none !important;
+            }
+‏            .invoice-actions {
+‏                display: none !important;
+            }
+‏            .invoice-row.total-row {
+‏                background: rgba(184, 134, 11, 0.05) !important;
+‏                -webkit-print-color-adjust: exact;
+‏                print-color-adjust: exact;
+            }
+‏            .word-amount-invoice {
+‏                background: rgba(184, 134, 11, 0.07) !important;
+‏                -webkit-print-color-adjust: exact;
+‏                print-color-adjust: exact;
+            }
+        }
+
+‏        /* ── Responsive ── */
+‏        @media (max-width: 480px) {
+‏            .calculator-card {
+‏                padding: 14px 10px;
+            }
+‏            .invoice-body {
+‏                padding: 16px 14px;
+            }
+‏            .invoice-header {
+‏                padding: 20px 16px 16px;
+            }
+‏            .invoice-header h3 {
+‏                font-size: 20px;
+            }
+‏            .invoice-header .buyer-badge {
+‏                font-size: 15px;
+‏                padding: 6px 18px;
+            }
+‏            .invoice-row {
+‏                font-size: 12px;
+‏                padding: 6px 0;
+            }
+‏            .invoice-row.total-row {
+‏                font-size: 17px;
+‏                padding: 10px 12px;
+            }
+‏            .invoice-actions {
+‏                padding: 12px 14px 16px;
+‏                gap: 6px;
+            }
+‏            .invoice-actions button {
+‏                padding: 8px 12px;
+‏                font-size: 11px;
+‏                min-width: 56px;
+            }
+‏            .action-row button {
+‏                font-size: 10px;
+‏                min-height: 34px;
+‏                padding: 6px 4px;
+            }
+‏            .result-item {
+‏                font-size: 12px;
+            }
+‏            .result-item.total {
+‏                font-size: 15px;
+            }
+        }
+‏    </style>
+‏</head>
+‏<body>
+
+‏    <!-- ═══ MAIN APP ═══ -->
+‏    <div class="calculator-card" id="app">
+‏        <h2>
+‏            <span>🏆 سامانه طلا</span>
+‏            <span style="font-size:15px;display:flex;gap:4px;">
+‏                <button onclick="toggleTheme()" style="background:none;border:none;font-size:22px;cursor:pointer;padding:4px 8px;">🌓</button>
+‏                <button onclick="clearAll()" style="background:none;border:none;font-size:22px;cursor:pointer;padding:4px 8px;">🔄</button>
+‏            </span>
+‏        </h2>
+
+‏        <button id="installBanner" onclick="installApp()">📲 نصب برنامه روی گوشی</button>
+
+‏        <div class="top-actions">
+‏            <button onclick="toggleHistory()">📜 تاریخچه</button>
+‏            <button onclick="showHelp()">❓ راهنما</button>
+‏        </div>
+‏        <div class="history-box" id="historyBox"></div>
+
+‏        <!-- Global inputs -->
+‏        <div class="row">
+‏            <div class="form-group"><label>📊 قیمت ۱۸ عیار (تومان)</label><input type="text" id="globalGoldPrice" placeholder="مثلاً 4,500,000" onkeyup="formatInput(this)" inputmode="numeric" /></div>
+‏            <div class="form-group"><label>💵 نرخ دلار (تومان)</label><input type="text" id="usdRate" value="60,000" onkeyup="formatInput(this)" inputmode="numeric" /></div>
+‏        </div>
+‏        <div class="form-group">
+‏            <label>🌍 قیمت انس طلا (دلار)</label>
+‏            <input type="text" id="ouncePrice" value="2,400" onkeyup="formatInput(this)" inputmode="numeric" />
+‏            <button onclick="estimateFromOunce()" style="margin-top:6px;padding:8px;background:var(--gold);color:#fff;border:none;border-radius:8px;width:100%;font-weight:bold;cursor:pointer;">🔮 تخمین ۱۸ عیار از انس</button>
+‏        </div>
+
+‏        <!-- Buyer name -->
+‏        <div class="buyer-name-group">
+‏            <label>👤 نام خریدار</label>
+‏            <input type="text" id="buyerName" placeholder="مثلاً علی محمدی" style="text-align:center;font-weight:bold;font-size:15px;" />
+‏        </div>
+
+‏        <!-- Tabs -->
+‏        <div class="tabs">
+‏            <button id="btnTabGold" class="tab-btn active" onclick="switchTab('gold')">💍 طلا</button>
+‏            <button id="btnTabCoin" class="tab-btn" onclick="switchTab('coin')">🪙 سکه</button>
+‏        </div>
+
+‏        <!-- ═══ GOLD SECTION ═══ -->
+‏        <div id="goldSection">
+‏            <div class="row">
+‏                <div class="form-group"><label>عیار طلا</label><select id="caratSelect"><option value="18">۱۸ عیار</option><option value="21">۲۱ عیار</option><option value="24">۲۴ عیار</option></select></div>
+‏                <div class="form-group"><label>وزن (گرم)</label><input type="number" id="weight" step="0.001" placeholder="مثلاً 4.250" inputmode="decimal" /></div>
+‏            </div>
+‏            <div class="checkbox-group">
+‏                <input type="checkbox" id="isSecondHand" onchange="toggleSecondHand(this)" />
+‏                <label for="isSecondHand">♻️ طلای دست دوم (بدون اجرت و مالیات)</label>
+‏            </div>
+‏            <div class="row">
+‏                <div class="form-group"><label>اجرت ساخت (%)</label><input type="number" id="wage" value="15" step="0.1" /></div>
+‏                <div class="form-group"><label>سود فروشنده (%)</label><input type="number" id="profit" value="7" step="0.1" /></div>
+‏                <div class="form-group"><label>مالیات (%)</label><input type="number" id="tax" value="9" step="0.1" /></div>
+‏            </div>
+‏            <div class="form-group"><label>🚨 هشدار اگر قیمت نهایی بیشتر شد</label><input type="text" id="alertThreshold" placeholder="مثلاً 5,000,000" onkeyup="formatInput(this)" /></div>
+‏            <button class="calc-btn" onclick="calculateGold()">🧮 محاسبه قیمت طلا</button>
+
+‏            <div class="results" id="goldResultBox">
+‏                <div class="result-item"><span>قیمت هر گرم</span><span><span id="resConvertPrice">۰</span> تومان</span></div>
+‏                <div class="result-item"><span>قیمت خام</span><span><span id="resRawGold">۰</span> تومان</span></div>
+‏                <div class="result-item"><span>اجرت ساخت</span><span><span id="resWage">۰</span> تومان</span></div>
+‏                <div class="result-item"><span>سود فروشنده</span><span><span id="resProfit">۰</span> تومان</span></div>
+‏                <div class="result-item"><span>مالیات</span><span><span id="resTax">۰</span> تومان</span></div>
+‏                <div class="result-item total"><span>💰 قیمت نهایی</span><span><span id="resTotal">۰</span> تومان</span></div>
+‏                <div class="result-item"><span>💵 معادل دلار</span><span><span id="resTotalUSD">۰</span> دلار</span></div>
+‏                <div class="result-item"><span>🔤 به حروف</span><span class="word-amount" id="resWords">۰</span></div>
+‏                <div class="alert-banner" id="alertBanner">⚠️ قیمت از حد مجاز بیشتر است!</div>
+‏                <div class="action-row">
+‏                    <button class="btn-invoice" onclick="showGoldInvoice()">📄 فاکتور</button>
+‏                    <button class="btn-copy" onclick="copyResult()">📋 کپی</button>
+‏                </div>
+‏            </div>
+‏        </div>
+
+‏        <!-- ═══ COIN SECTION ═══ -->
+‏        <div id="coinSection" style="display:none;">
+‏            <div class="form-group"><label>نوع سکه</label><select id="coinType"><option value="emami" data-weight="8.133">سکه امامی</option><option value="bahar" data-weight="8.133">بهار آزادی</option><option value="nim" data-weight="4.066">نیم سکه</option><option value="rob" data-weight="2.033">ربع سکه</option><option value="grami" data-weight="1.017">سکه گرمی</option></select></div>
+‏            <div class="row">
+‏                <div class="form-group"><label>قیمت فروش روز</label><input type="text" id="coinMarketPrice" placeholder="مثلاً 50,000,000" onkeyup="formatInput(this)" /></div>
+‏                <div class="form-group" style="max-width:110px;"><label>تعداد</label><input type="number" id="coinCount" value="1" min="1" /></div>
+‏            </div>
+‏            <div class="form-group"><label>🚨 هشدار حباب بیشتر از</label><input type="text" id="alertThresholdCoin" placeholder="مثلاً 2,000,000" onkeyup="formatInput(this)" /></div>
+‏            <button class="calc-btn" onclick="calculateCoin()">🧮 محاسبه قیمت سکه</button>
+
+‏            <div class="results" id="coinResultBox">
+‏                <div class="result-item"><span>وزن کل</span><span><span id="resCoinWeight">۰</span> گرم</span></div>
+‏                <div class="result-item"><span>ارزش واقعی</span><span><span id="resCoinRealValue">۰</span> تومان</span></div>
+‏                <div class="result-item"><span>حباب هر عدد</span><span class="bubble-text"><span id="resCoinSingleBubble">۰</span> تومان</span></div>
+‏                <div class="result-item total"><span>💰 قیمت نهایی</span><span><span id="resCoinTotal">۰</span> تومان</span></div>
+‏                <div class="result-item"><span>💵 معادل دلار</span><span><span id="resCoinTotalUSD">۰</span> دلار</span></div>
+‏                <div class="result-item"><span>🔤 به حروف</span><span class="word-amount" id="resCoinWords">۰</span></div>
+‏                <div class="alert-banner" id="alertBannerCoin">⚠️ حباب بیش از حد مجاز!</div>
+‏                <div class="action-row">
+‏                    <button class="btn-invoice" onclick="showCoinInvoice()">📄 فاکتور</button>
+‏                    <button class="btn-copy" onclick="copyResult()">📋 کپی</button>
+‏                </div>
+‏            </div>
+‏        </div>
+
+‏        <!-- Chart -->
+‏        <div class="chart-container"><canvas id="priceChart" height="110"></canvas></div>
+‏    </div>
+
+‏    <!-- ═══ STYLISH INVOICE OVERLAY ═══ -->
+‏    <div class="invoice-overlay" id="invoiceOverlay">
+‏        <div class="invoice-box" id="invoiceBox">
+‏            <div class="invoice-header">
+‏                <span class="inv-logo">🏅</span>
+‏                <h3 id="invTitle">صورتحساب طلا</h3>
+‏                <div class="inv-sub">فاکتور رسمی · سامانه طلا</div>
+‏                <div id="invBuyerBadge" class="buyer-badge">مشتری</div>
+‏            </div>
+‏            <div class="invoice-body" id="invoiceContent">
+‏                <!-- dynamically filled -->
+‏            </div>
+‏            <div class="invoice-actions" id="invoiceModalActions">
+‏                <button class="btn-close-inv" onclick="closeInvoice()">✖️ بستن</button>
+‏                <button class="btn-pdf-inv" onclick="downloadInvoicePDFModal()">📥 PDF</button>
+‏                <button class="btn-png-inv" onclick="downloadInvoicePNGModal()">🖼️ PNG</button>
+‏                <button class="btn-print-inv" onclick="printInvoiceModal()">🖨️ پرینت</button>
+‏            </div>
+‏        </div>
+‏    </div>
+
+‏    <!-- Toast -->
+‏    <div class="toast" id="toast"></div>
+
+    <!-- ════════════════════════════════════════════════
+‏    SCRIPT
+    ════════════════════════════════════════════════ -->
+‏    <script>
+‏        // ─── Global State ───
+‏        let lastGoldData = null;
+‏        let lastCoinData = null;
+‏        let deferredPrompt = null;
+‏        let chartData = [];
+‏        let currentInvoiceType = 'gold';
+
+‏        try {
+‏            const saved = localStorage.getItem('chartData');
+‏            if (saved) { const p = JSON.parse(saved); if (Array.isArray(p)) chartData = p.slice(-30); }
+‏        } catch (_) {}
+
+‏        // ─── Helpers ───
+‏        function formatInput(el) {
+‏            let v = el.value.replace(/,/g, '');
+‏            if (!isNaN(v) && v !== '' && v !== '-') el.value = Number(v).toLocaleString();
+        }
+
+‏        function getRawValue(el) { return parseFloat(el.value.replace(/,/g, '')) || 0; }
+
+‏        function getGlobalPrice() { return getRawValue(document.getElementById('globalGoldPrice')); }
+
+‏        function getUSD() { return getRawValue(document.getElementById('usdRate')); }
+
+‏        function getBuyerName() { return document.getElementById('buyerName').value.trim() || 'مشتری'; }
+
+‏        function persianDate() {
+‏            const d = new Date();
+‏            try { return d.toLocaleDateString('fa-IR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
+‏                    hour: '2-digit', minute: '2-digit' }); } catch (_) { return d.toLocaleString('fa-IR'); }
+        }
+
+‏        function numberToWords(num) {
+‏            if (num === 0 || isNaN(num)) return 'صفر';
+‏            const n = Math.abs(Math.round(num));
+‏            const u = ['', 'یک', 'دو', 'سه', 'چهار', 'پنج', 'شش', 'هفت', 'هشت', 'نه'];
+‏            const t = ['', 'ده', 'بیست', 'سی', 'چهل', 'پنجاه', 'شصت', 'هفتاد', 'هشتاد', 'نود'];
+‏            const h = ['', 'صد', 'دویست', 'سیصد', 'چهارصد', 'پانصد', 'ششصد', 'هفتصد', 'هشتصد', 'نهصد'];
+‏            const th = ['', 'هزار', 'میلیون', 'میلیارد', 'تریلیون'];
+
+‏            function chunk(n) {
+‏                let s = '';
+‏                if (n >= 100) { s += h[Math.floor(n / 100)] + ' ';
+‏                    n %= 100; }
+‏                if (n >= 20) { s += t[Math.floor(n / 10)] + ' ';
+‏                    n %= 10; }
+‏                if (n > 0 && n < 10) s += u[n] + ' ';
+‏                else if (n === 10) s += 'ده ';
+‏                else if (n > 10 && n < 20) { const teens = ['یازده', 'دوازده', 'سیزده', 'چهارده', 'پانزده', 'شانزده', 'هفده',
+                        'هجده', 'نوزده'
+                    ];
+‏                    s += teens[n - 11] + ' '; }
+‏                return s.trim();
+            }
+‏            let parts = [],
+‏                c = 0,
+‏                tmp = n;
+‏            while (tmp > 0) { let ck = tmp % 1000; if (ck > 0) parts.push(chunk(ck) + (th[c] ? ' ' + th[c] : '')); tmp = Math
+‏                    .floor(tmp / 1000);
+‏                c++; }
+‏            let r = parts.reverse().join(' و ');
+‏            return num < 0 ? 'منفی ' + r : r;
+        }
+
+‏        function showToast(msg) {
+‏            const t = document.getElementById('toast');
+‏            t.innerText = msg;
+‏            t.classList.add('show');
+‏            clearTimeout(t._timer);
+‏            t._timer = setTimeout(() => t.classList.remove('show'), 2800);
+        }
+
+‏        // ─── Theme ───
+‏        function toggleTheme() {
+‏            const html = document.documentElement;
+‏            html.setAttribute('data-theme', html.getAttribute('data-theme') === 'dark' ? '' : 'dark');
+‏            localStorage.setItem('theme', html.getAttribute('data-theme') || 'light');
+        }
+‏        (function() { if (localStorage.getItem('theme') === 'dark') document.documentElement.setAttribute('data-theme',
+‏            'dark'); })();
+
+‏        function estimateFromOunce() {
+‏            const ounce = getRawValue(document.getElementById('ouncePrice'));
+‏            const usd = getUSD();
+‏            if (!ounce || !usd) { showToast('انس و دلار را وارد کنید'); return; }
+‏            const est = (ounce * usd) / 31.1035 * 0.750;
+‏            document.getElementById('globalGoldPrice').value = Math.round(est).toLocaleString();
+‏            showToast('💰 ۱۸ عیار تخمینی: ' + Math.round(est).toLocaleString());
+        }
+
+‏        // ─── History ───
+‏        function getHistory() { try { return JSON.parse(localStorage.getItem('goldHistoryFull')) || []; } catch (_) { return []; } }
+
+‏        function saveHistory(entry) {
+‏            let hist = getHistory();
+‏            hist.push(entry);
+‏            if (hist.length > 40) hist = hist.slice(-40);
+‏            localStorage.setItem('goldHistoryFull', JSON.stringify(hist));
+        }
+
+‏        function toggleHistory() {
+‏            const box = document.getElementById('historyBox');
+‏            if (box.style.display === 'block') { box.style.display = 'none'; return; }
+‏            const hist = getHistory();
+‏            if (!hist.length) {
+‏                box.innerHTML = '<div style="text-align:center;padding:16px;color:#888;">📭 تاریخچه خالی است.</div>';
+‏            } else {
+‏                let html = '';
+‏                hist.slice().reverse().forEach((item, idx) => {
+‏                    const realIdx = hist.length - 1 - idx;
+‏                    const type = item.type === 'gold' ? '💍 طلا' : '🪙 سکه';
+‏                    const total = Math.round(item.total || 0);
+‏                    html += `<div class="history-item" onclick="loadHistoryItem(${realIdx})">
+‏                        <span class="hi-info">${type} — ${total.toLocaleString()} تومان<br/><small>${item.date || ''} | ${item.buyerName || ''}</small></span>
+‏                        <span class="hi-actions"><button class="btn-view" onclick="event.stopPropagation();loadHistoryItem(${realIdx})">📄</button><button class="btn-del" onclick="event.stopPropagation();removeHistoryItem(${realIdx})">🗑️</button></span>
+‏                    </div>`;
                 });
-            } catch (e) {
-                return d.toLocaleString('fa-IR');
+‏                box.innerHTML = html;
             }
+‏            box.style.display = 'block';
+‏            box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
 
-        function numberToWords(num) {
-            if (num === 0 || isNaN(num)) return 'صفر';
-            const n = Math.abs(Math.round(num));
-            const units = ['', 'یک', 'دو', 'سه', 'چهار', 'پنج', 'شش', 'هفت', 'هشت', 'نه'];
-            const tens = ['', 'ده', 'بیست', 'سی', 'چهل', 'پنجاه', 'شصت', 'هفتاد', 'هشتاد', 'نود'];
-            const hundreds = ['', 'صد', 'دویست', 'سیصد', 'چهارصد', 'پانصد', 'ششصد', 'هفتصد', 'هشتصد', 'نهصد'];
-            const thousands = ['', 'هزار', 'میلیون', 'میلیارد', 'تریلیون'];
+‏        function removeHistoryItem(index) {
+‏            let hist = getHistory();
+‏            if (index >= 0 && index < hist.length) { hist.splice(index, 1);
+‏                localStorage.setItem('goldHistoryFull', JSON.stringify(hist));
+‏                toggleHistory();
+‏                showToast('🗑️ حذف شد'); }
+        }
 
-            function convertChunk(num) {
-                let s = '';
-                if (num >= 100) {
-                    s += hundreds[Math.floor(num / 100)] + ' ';
-                    num %= 100;
-                }
-                if (num >= 20) {
-                    s += tens[Math.floor(num / 10)] + ' ';
-                    num %= 10;
-                }
-                if (num > 0 && num < 10) {
-                    s += units[num] + ' ';
-                } else if (num === 10) {
-                    s += 'ده ';
-                } else if (num > 10 && num < 20) {
-                    const teens = ['یازده', 'دوازده', 'سیزده', 'چهارده', 'پانزده', 'شانزده', 'هفده', 'هجده', 'نوزده'];
-                    s += teens[num - 11] + ' ';
-                }
-                return s.trim();
+‏        function loadHistoryItem(index) {
+‏            const hist = getHistory();
+‏            if (index < 0 || index >= hist.length) return;
+‏            const item = hist[index];
+‏            document.getElementById('historyBox').style.display = 'none';
+‏            if (item.type === 'gold') {
+‏                lastGoldData = item.data;
+‏                document.getElementById('globalGoldPrice').value = Math.round(item.data.gold18Price).toLocaleString();
+‏                document.getElementById('caratSelect').value = item.data.carat;
+‏                document.getElementById('weight').value = item.data.weight;
+‏                document.getElementById('wage').value = item.data.wagePercent;
+‏                document.getElementById('profit').value = item.data.profitPercent;
+‏                document.getElementById('tax').value = item.data.taxPercent;
+‏                document.getElementById('buyerName').value = item.buyerName || '';
+‏                document.getElementById('isSecondHand').checked = (item.data.wagePercent === 0 && item.data.taxPercent === 0);
+‏                toggleSecondHand(document.getElementById('isSecondHand'));
+‏                switchTab('gold');
+‏                displayGoldResults(item.data);
+‏                showGoldInvoice();
+‏            } else {
+‏                lastCoinData = item.data;
+‏                document.getElementById('globalGoldPrice').value = Math.round(item.data.gold18Price).toLocaleString();
+‏                document.getElementById('coinMarketPrice').value = Math.round(item.data.coinMarketPrice).toLocaleString();
+‏                document.getElementById('coinCount').value = item.data.coinCount;
+‏                document.getElementById('buyerName').value = item.buyerName || '';
+‏                const sel = document.getElementById('coinType');
+‏                for (let i = 0; i < sel.options.length; i++)
+‏                    if (sel.options[i].getAttribute('data-weight') == item.data.coinWeight) { sel.selectedIndex = i; break; }
+‏                switchTab('coin');
+‏                displayCoinResults(item.data);
+‏                showCoinInvoice();
             }
-
-            let parts = [];
-            let chunkCount = 0;
-            let temp = n;
-            while (temp > 0) {
-                let chunk = temp % 1000;
-                if (chunk > 0) {
-                    let chunkStr = convertChunk(chunk);
-                    if (thousands[chunkCount]) chunkStr += ' ' + thousands[chunkCount];
-                    parts.push(chunkStr);
-                }
-                temp = Math.floor(temp / 1000);
-                chunkCount++;
-            }
-            let result = parts.reverse().join(' و ');
-            if (num < 0) result = 'منفی ' + result;
-            return result;
+‏            showToast('📋 فاکتور بارگذاری شد.');
         }
 
-        function showToast(msg) {
-            const t = document.getElementById('toast');
-            t.innerText = msg;
-            t.classList.add('show');
-            clearTimeout(t._timer);
-            t._timer = setTimeout(() => t.classList.remove('show'), 2800);
+‏        function clearAll() {
+‏            if (!confirm('پاک شود؟')) return;
+‏            document.querySelectorAll('input:not([type="checkbox"]):not(#usdRate):not(#ouncePrice)').forEach(e => { if (e
+‏                    .id !== 'alertThreshold' && e.id !== 'alertThresholdCoin') e.value = ''; });
+‏            document.getElementById('usdRate').value = '60,000';
+‏            document.getElementById('ouncePrice').value = '2,400';
+‏            document.getElementById('buyerName').value = '';
+‏            document.getElementById('isSecondHand').checked = false;
+‏            toggleSecondHand(document.getElementById('isSecondHand'));
+‏            document.getElementById('goldResultBox').style.display = 'none';
+‏            document.getElementById('coinResultBox').style.display = 'none';
+‏            document.getElementById('alertBanner').style.display = 'none';
+‏            document.getElementById('alertBannerCoin').style.display = 'none';
+‏            lastGoldData = null;
+‏            lastCoinData = null;
+‏            showToast('✅ پاک شد.');
         }
 
-        // ============================================================
-        //  تم تیره/روشن
-        // ============================================================
-        function toggleTheme() {
-            const html = document.documentElement;
-            const current = html.getAttribute('data-theme');
-            if (current === 'dark') {
-                html.removeAttribute('data-theme');
-                localStorage.setItem('theme', 'light');
-            } else {
-                html.setAttribute('data-theme', 'dark');
-                localStorage.setItem('theme', 'dark');
-            }
-        }
-        (function loadTheme() {
-            if (localStorage.getItem('theme') === 'dark') {
-                document.documentElement.setAttribute('data-theme', 'dark');
-            }
-        })();
+‏        function showHelp() { showToast('📖 قیمت پایه را وارد، محاسبه کنید. تاریخچه فاکتورها ذخیره می‌شود.'); }
 
-        // ============================================================
-        //  تخمین قیمت ۱۸ عیار از انس جهانی
-        // ============================================================
-        function estimateFromOunce() {
-            const ounce = getRawValue(document.getElementById('ouncePrice'));
-            if (!ounce) { showToast('لطفاً قیمت انس را وارد کنید.'); return; }
-            const usd = getUSD();
-            if (!usd) { showToast('نرخ دلار را وارد کنید.'); return; }
-            const estimated = (ounce * usd) / 31.1035 * 0.750;
-            document.getElementById('globalGoldPrice').value = Math.round(estimated).toLocaleString();
-            showToast('💰 قیمت ۱۸ عیار تخمین زده شد: ' + Math.round(estimated).toLocaleString() + ' تومان');
+‏        function copyResult() {
+‏            let el = document.querySelector('.results[style*="block"] .total .value') || document.getElementById('resTotal') ||
+‏                document.getElementById('resCoinTotal');
+‏            if (el && el.innerText && el.innerText !== '۰') {
+‏                const txt = el.innerText + ' تومان';
+‏                navigator.clipboard?.writeText(txt).then(() => showToast('📋 کپی شد')).catch(() => showToast('کپی نشد'));
+‏            } else showToast('ابتدا محاسبه کنید.');
         }
 
-        // ============================================================
-        //  تاریخچه
-        // ============================================================
-        function getHistory() {
-            try {
-                return JSON.parse(localStorage.getItem('goldHistoryFull')) || [];
-            } catch (e) { return []; }
+‏        function switchTab(tab) {
+‏            document.getElementById('goldSection').style.display = tab === 'gold' ? 'block' : 'none';
+‏            document.getElementById('coinSection').style.display = tab === 'coin' ? 'block' : 'none';
+‏            document.getElementById('btnTabGold').classList.toggle('active', tab === 'gold');
+‏            document.getElementById('btnTabCoin').classList.toggle('active', tab === 'coin');
         }
 
-        function saveHistory(entry) {
-            let history = getHistory();
-            history.push(entry);
-            if (history.length > 40) history = history.slice(-40);
-            localStorage.setItem('goldHistoryFull', JSON.stringify(history));
+‏        function toggleSecondHand(cb) {
+‏            const w = document.getElementById('wage'),
+‏                t = document.getElementById('tax');
+‏            if (cb.checked) { w.value = 0;
+‏                w.disabled = true;
+‏                t.value = 0;
+‏                t.disabled = true; } else { w.disabled = false;
+‏                t.disabled = false; if (w.value == 0) w.value = 15; if (t.value == 0) t.value = 9; }
         }
 
-        function toggleHistory() {
-            const box = document.getElementById('historyBox');
-            if (box.style.display === 'block') {
-                box.style.display = 'none';
-                return;
-            }
-            const history = getHistory();
-            if (history.length === 0) {
-                box.innerHTML = '<div style="text-align:center;padding:16px;color:#888;">📭 تاریخچه خالی است. با محاسبه طلا یا سکه، آیتم‌ها اینجا ظاهر می‌شوند.</div>';
-            } else {
-                let html = '';
-                history.slice().reverse().forEach((item, idx) => {
-                    const realIdx = history.length - 1 - idx;
-                    const typeLabel = item.type === 'gold' ? '💍 طلا' : '🪙 سکه';
-                    const total = Math.round(item.total || 0);
-                    html += `
-                    <div class="history-item" onclick="loadHistoryItem(${realIdx})" title="کلیک برای مشاهده فاکتور">
-                        <span class="hi-info">${typeLabel} — ${total.toLocaleString()} تومان <br><small style="color:#888;">${item.date || ''} | ${item.buyerName || 'مشتری'}</small></span>
-                        <span class="hi-actions">
-                            <button class="btn-view" onclick="event.stopPropagation();loadHistoryItem(${realIdx})" title="مشاهده فاکتور">📄</button>
-                            <button class="btn-del" onclick="event.stopPropagation();removeHistoryItem(${realIdx})" title="حذف">🗑️</button>
-                        </span>
-                    </div>`;
-                });
-                box.innerHTML = html;
-            }
-            box.style.display = 'block';
-            box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+‏        // ─── Chart ───
+‏        function updateChart(price) {
+‏            chartData.push({ time: new Date().toLocaleTimeString('fa-IR'), price: Math.round(price) });
+‏            if (chartData.length > 30) chartData.shift();
+‏            localStorage.setItem('chartData', JSON.stringify(chartData));
+‏            drawChart();
         }
 
-        function removeHistoryItem(index) {
-            let history = getHistory();
-            if (index >= 0 && index < history.length) {
-                history.splice(index, 1);
-                localStorage.setItem('goldHistoryFull', JSON.stringify(history));
-                toggleHistory();
-                showToast('🗑️ آیتم حذف شد.');
-            }
+‏        function drawChart() {
+‏            const canvas = document.getElementById('priceChart'),
+‏                ctx = canvas.getContext('2d');
+‏            const w = Math.max(canvas.parentElement.clientWidth - 16, 280),
+‏                h = 110;
+‏            const dpr = Math.min(devicePixelRatio || 1, 2);
+‏            canvas.width = w * dpr;
+‏            canvas.height = h * dpr;
+‏            canvas.style.width = w + 'px';
+‏            canvas.style.height = h + 'px';
+‏            ctx.setTransform(1, 0, 0, 1, 0, 0);
+‏            ctx.scale(dpr, dpr);
+‏            ctx.clearRect(0, 0, w, h);
+‏            if (chartData.length < 2) { ctx.fillStyle = '#888';
+‏                ctx.font = '13px Vazirmatn';
+‏                ctx.textAlign = 'center';
+‏                ctx.fillText('📈 نمودار پس از چند محاسبه', w / 2, h / 2 + 5); return; }
+‏            const prices = chartData.map(d => d.price),
+‏                min = Math.min(...prices) * 0.93,
+‏                max = Math.max(...prices) * 1.07,
+‏                range = max - min || 1;
+‏            const px = 15,
+‏                py = 15,
+‏                pw = w - px * 2,
+‏                ph = h - py * 2;
+‏            ctx.strokeStyle = '#b8860b';
+‏            ctx.lineWidth = 2.5;
+‏            ctx.beginPath();
+‏            for (let i = 0; i < chartData.length; i++) { const x = px + (i / (chartData.length - 1)) * pw; const y = py + ph - ((
+‏                    prices[i] - min) / range) * ph;
+‏                i ? ctx.lineTo(x, y) : ctx.moveTo(x, y); }
+‏            ctx.stroke();
+‏            ctx.fillStyle = '#b8860b';
+‏            for (let i = 0; i < chartData.length; i++) { const x = px + (i / (chartData.length - 1)) * pw; const y = py + ph - ((
+‏                    prices[i] - min) / range) * ph;
+‏                ctx.beginPath();
+‏                ctx.arc(x, y, 3.5, 0, 2 * Math.PI);
+‏                ctx.fill(); }
         }
 
-        function loadHistoryItem(index) {
-            const history = getHistory();
-            if (index < 0 || index >= history.length) {
-                showToast('❌ آیتم یافت نشد.');
-                return;
-            }
-            const item = history[index];
-            document.getElementById('historyBox').style.display = 'none';
-
-            if (item.type === 'gold') {
-                lastGoldData = item.data;
-                document.getElementById('globalGoldPrice').value = Math.round(item.data.gold18Price || 0).toLocaleString();
-                document.getElementById('caratSelect').value = item.data.carat || 18;
-                document.getElementById('weight').value = item.data.weight || '';
-                document.getElementById('wage').value = item.data.wagePercent ?? 15;
-                document.getElementById('profit').value = item.data.profitPercent ?? 7;
-                document.getElementById('tax').value = item.data.taxPercent ?? 9;
-                document.getElementById('buyerName').value = item.buyerName || '';
-                const isSecond = (item.data.wagePercent === 0 && item.data.taxPercent === 0);
-                document.getElementById('isSecondHand').checked = isSecond;
-                toggleSecondHand(document.getElementById('isSecondHand'));
-                switchTab('gold');
-                displayGoldResults(item.data);
-                showGoldInvoice();
-            } else if (item.type === 'coin') {
-                lastCoinData = item.data;
-                document.getElementById('globalGoldPrice').value = Math.round(item.data.gold18Price || 0).toLocaleString();
-                document.getElementById('coinMarketPrice').value = Math.round(item.data.coinMarketPrice || 0).toLocaleString();
-                document.getElementById('coinCount').value = item.data.coinCount || 1;
-                document.getElementById('buyerName').value = item.buyerName || '';
-                const coinSelect = document.getElementById('coinType');
-                for (let i = 0; i < coinSelect.options.length; i++) {
-                    if (coinSelect.options[i].getAttribute('data-weight') == item.data.coinWeight) {
-                        coinSelect.selectedIndex = i;
-                        break;
-                    }
-                }
-                switchTab('coin');
-                displayCoinResults(item.data);
-                showCoinInvoice();
-            }
-            showToast('📋 فاکتور قبلی بارگذاری شد.');
+‏        // ─── Gold Calculation ───
+‏        function calculateGold() {
+‏            const gold18 = getGlobalPrice();
+‏            if (!gold18) { showToast('قیمت ۱۸ عیار را وارد کنید'); return; }
+‏            const carat = parseFloat(document.getElementById('caratSelect').value);
+‏            const weight = parseFloat(document.getElementById('weight').value) || 0;
+‏            if (!weight) { showToast('وزن را وارد کنید'); return; }
+‏            const wageP = parseFloat(document.getElementById('wage').value) || 0;
+‏            const profitP = parseFloat(document.getElementById('profit').value) || 0;
+‏            const taxP = parseFloat(document.getElementById('tax').value) || 0;
+‏            let pricePerGram = gold18;
+‏            if (carat === 21) pricePerGram = (gold18 / 750) * 875;
+‏            else if (carat === 24) pricePerGram = (gold18 / 750) * 995;
+‏            const raw = pricePerGram * weight;
+‏            const wage = raw * (wageP / 100);
+‏            const profit = (raw + wage) * (profitP / 100);
+‏            const tax = (wage + profit) * (taxP / 100);
+‏            const total = raw + wage + profit + tax;
+‏            const usd = getUSD();
+‏            const totalUSD = usd ? total / usd : 0;
+‏            const data = { gold18Price: gold18, carat, weight, wagePercent: wageP, profitPercent: profitP, taxPercent: taxP,
+‏                currentCaratPrice: pricePerGram, rawPrice: raw, wageAmount: wage, profitAmount: profit, taxAmount: tax,
+‏                total, totalUSD };
+‏            displayGoldResults(data);
+‏            lastGoldData = data;
+‏            saveHistory({ type: 'gold', data, total, date: persianDate(), buyerName: getBuyerName() });
+‏            updateChart(total);
+‏            const th = getRawValue(document.getElementById('alertThreshold'));
+‏            document.getElementById('alertBanner').style.display = (th && total > th) ? 'block' : 'none';
         }
 
-        // ============================================================
-        //  پاک کردن همه
-        // ============================================================
-        function clearAll() {
-            if (!confirm('همه فیلدها و نتایج پاک شوند؟')) return;
-            document.querySelectorAll('input:not([type="checkbox"]):not(#usdRate):not(#ouncePrice):not(#alertThreshold):not(#alertThresholdCoin)').forEach(el => { el.value = ''; });
-            document.getElementById('usdRate').value = '60,000';
-            document.getElementById('ouncePrice').value = '2,400';
-            document.getElementById('buyerName').value = '';
-            document.getElementById('isSecondHand').checked = false;
-            toggleSecondHand(document.getElementById('isSecondHand'));
-            document.getElementById('goldResultBox').style.display = 'none';
-            document.getElementById('coinResultBox').style.display = 'none';
-            document.getElementById('alertBanner').style.display = 'none';
-            document.getElementById('alertBannerCoin').style.display = 'none';
-            document.getElementById('historyBox').style.display = 'none';
-            lastGoldData = null;
-            lastCoinData = null;
-            showToast('✅ همه چیز پاک شد.');
+‏        function displayGoldResults(d) {
+‏            document.getElementById('resConvertPrice').innerText = Math.round(d.currentCaratPrice).toLocaleString();
+‏            document.getElementById('resRawGold').innerText = Math.round(d.rawPrice).toLocaleString();
+‏            document.getElementById('resWage').innerText = Math.round(d.wageAmount).toLocaleString();
+‏            document.getElementById('resProfit').innerText = Math.round(d.profitAmount).toLocaleString();
+‏            document.getElementById('resTax').innerText = Math.round(d.taxAmount).toLocaleString();
+‏            document.getElementById('resTotal').innerText = Math.round(d.total).toLocaleString();
+‏            document.getElementById('resTotalUSD').innerText = d.totalUSD.toFixed(2);
+‏            document.getElementById('resWords').innerText = numberToWords(Math.round(d.total)) + ' تومان';
+‏            document.getElementById('goldResultBox').style.display = 'block';
+‏            document.getElementById('goldResultBox').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
 
-        function showHelp() {
-            showToast('📖 قیمت مبنا را وارد کنید، وزن/نوع را تنظیم و محاسبه کنید. تاریخچه فاکتورهای کامل را ذخیره می‌کند. روی آیتم‌های تاریخچه کلیک کنید تا فاکتور قبلی را ببینید.');
+‏        // ─── Coin Calculation ───
+‏        function calculateCoin() {
+‏            const gold18 = getGlobalPrice();
+‏            if (!gold18) { showToast('قیمت ۱۸ عیار را وارد کنید'); return; }
+‏            const sel = document.getElementById('coinType');
+‏            const opt = sel.options[sel.selectedIndex];
+‏            const coinW = parseFloat(opt.getAttribute('data-weight'));
+‏            const coinName = opt.text;
+‏            const marketPrice = getRawValue(document.getElementById('coinMarketPrice'));
+‏            if (!marketPrice) { showToast('قیمت فروش سکه را وارد کنید'); return; }
+‏            const count = parseInt(document.getElementById('coinCount').value) || 1;
+‏            const price900 = (gold18 / 750) * 900;
+‏            const realPerCoin = price900 * coinW;
+‏            const bubble = marketPrice - realPerCoin;
+‏            const totalW = coinW * count;
+‏            const totalReal = realPerCoin * count;
+‏            const totalMarket = marketPrice * count;
+‏            const usd = getUSD();
+‏            const totalUSD = usd ? totalMarket / usd : 0;
+‏            const data = { gold18Price: gold18, coinName, coinWeight: coinW, coinMarketPrice: marketPrice, coinCount: count,
+‏                realValuePerCoin: realPerCoin, singleBubble: bubble, totalWeight: totalW, totalRealValue: totalReal,
+‏                totalMarket, totalUSD };
+‏            displayCoinResults(data);
+‏            lastCoinData = data;
+‏            saveHistory({ type: 'coin', data, total: totalMarket, date: persianDate(), buyerName: getBuyerName() });
+‏            updateChart(totalMarket);
+‏            const th = getRawValue(document.getElementById('alertThresholdCoin'));
+‏            document.getElementById('alertBannerCoin').style.display = (th && bubble > th) ? 'block' : 'none';
         }
 
-        function copyResult() {
-            let totalEl = null;
-            if (document.getElementById('goldResultBox').style.display === 'block') {
-                totalEl = document.getElementById('resTotal');
-            } else if (document.getElementById('coinResultBox').style.display === 'block') {
-                totalEl = document.getElementById('resCoinTotal');
-            }
-            if (totalEl && totalEl.innerText && totalEl.innerText !== '۰') {
-                const text = totalEl.innerText + ' تومان';
-                if (navigator.clipboard && navigator.clipboard.writeText) {
-                    navigator.clipboard.writeText(text).then(() => {
-                        showToast('📋 کپی شد: ' + text);
-                    }).catch(() => showToast('❌ کپی ناموفق. لطفاً دستی کپی کنید.'));
-                } else {
-                    const ta = document.createElement('textarea');
-                    ta.value = text;
-                    ta.style.position = 'fixed';
-                    ta.style.left = '-9999px';
-                    document.body.appendChild(ta);
-                    ta.select();
-                    try { document.execCommand('copy'); showToast('📋 کپی شد: ' + text); } catch (e) { showToast('❌ کپی ناموفق'); }
-                    document.body.removeChild(ta);
-                }
-            } else {
-                showToast('⚠️ ابتدا محاسبه کنید.');
-            }
+‏        function displayCoinResults(d) {
+‏            document.getElementById('resCoinWeight').innerText = d.totalWeight.toFixed(3);
+‏            document.getElementById('resCoinRealValue').innerText = Math.round(d.totalRealValue).toLocaleString();
+‏            document.getElementById('resCoinSingleBubble').innerText = Math.round(d.singleBubble).toLocaleString();
+‏            document.getElementById('resCoinTotal').innerText = Math.round(d.totalMarket).toLocaleString();
+‏            document.getElementById('resCoinTotalUSD').innerText = d.totalUSD.toFixed(2);
+‏            document.getElementById('resCoinWords').innerText = numberToWords(Math.round(d.totalMarket)) + ' تومان';
+‏            document.getElementById('coinResultBox').style.display = 'block';
+‏            document.getElementById('coinResultBox').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
 
-        // ============================================================
-        //  سوئیچ تب
-        // ============================================================
-        function switchTab(tab) {
-            document.getElementById('goldSection').style.display = tab === 'gold' ? 'block' : 'none';
-            document.getElementById('coinSection').style.display = tab === 'coin' ? 'block' : 'none';
-            document.getElementById('btnTabGold').classList.toggle('active', tab === 'gold');
-            document.getElementById('btnTabCoin').classList.toggle('active', tab === 'coin');
-            document.getElementById('historyBox').style.display = 'none';
-        }
-
-        function toggleSecondHand(checkbox) {
-            const wage = document.getElementById('wage');
-            const tax = document.getElementById('tax');
-            if (checkbox.checked) {
-                wage.value = 0;
-                wage.disabled = true;
-                tax.value = 0;
-                tax.disabled = true;
-            } else {
-                if (wage.value == 0) wage.value = 15;
-                if (tax.value == 0) tax.value = 9;
-                wage.disabled = false;
-                tax.disabled = false;
-            }
-        }
-
-        // ============================================================
-        //  نمودار
-        // ============================================================
-        function updateChart(price) {
-            const p = Math.round(price);
-            chartData.push({ time: new Date().toLocaleTimeString('fa-IR'), price: p });
-            if (chartData.length > 30) chartData.shift();
-            try { localStorage.setItem('chartData', JSON.stringify(chartData)); } catch (e) {}
-            drawChart();
-        }
-
-        function drawChart() {
-            const canvas = document.getElementById('priceChart');
-            if (!canvas) return;
-            const ctx = canvas.getContext('2d');
-            const container = canvas.parentElement;
-            const w = Math.max(container.clientWidth - 16, 280);
-            const h = 110;
-            const dpr = Math.min(window.devicePixelRatio || 1, 2);
-            canvas.width = w * dpr;
-            canvas.height = h * dpr;
-            canvas.style.width = w + 'px';
-            canvas.style.height = h + 'px';
-            ctx.setTransform(1, 0, 0, 1, 0, 0);
-            ctx.scale(dpr, dpr);
-            ctx.clearRect(0, 0, w, h);
-
-            if (chartData.length < 2) {
-                ctx.fillStyle = '#888';
-                ctx.font = '13px Vazirmatn';
-                ctx.textAlign = 'center';
-                ctx.fillText('📈 پس از چند محاسبه، نمودار شکل می‌گیرد', w / 2, h / 2 + 5);
-                return;
-            }
-
-            const prices = chartData.map(d => d.price);
-            const min = Math.min(...prices) * 0.93;
-            const max = Math.max(...prices) * 1.07;
-            const range = max - min || 1;
-            const paddingX = 15;
-            const paddingY = 15;
-            const plotW = w - paddingX * 2;
-            const plotH = h - paddingY * 2;
-
-            ctx.strokeStyle = '#b8860b';
-            ctx.lineWidth = 2.5;
-            ctx.lineJoin = 'round';
-            ctx.beginPath();
-            for (let i = 0; i < chartData.length; i++) {
-                const x = paddingX + (i / Math.max(chartData.length - 1, 1)) * plotW;
-                const y = paddingY + plotH - ((prices[i] - min) / range) * plotH;
-                if (i === 0) ctx.moveTo(x, y);
-                else ctx.lineTo(x, y);
-            }
-            ctx.stroke();
-
-            ctx.fillStyle = '#b8860b';
-            for (let i = 0; i < chartData.length; i++) {
-                const x = paddingX + (i / Math.max(chartData.length - 1, 1)) * plotW;
-                const y = paddingY + plotH - ((prices[i] - min) / range) * plotH;
-                ctx.beginPath();
-                ctx.arc(x, y, 3.5, 0, 2 * Math.PI);
-                ctx.fill();
-            }
-        }
-
-        // ============================================================
-        //  محاسبه طلا
-        // ============================================================
-        function calculateGold() {
-            const gold18Price = getGlobalPrice();
-            if (!gold18Price) { showToast('⚠️ قیمت مبنای ۱۸ عیار را وارد کنید.'); return; }
-            const carat = parseFloat(document.getElementById('caratSelect').value);
-            const weight = parseFloat(document.getElementById('weight').value) || 0;
-            if (!weight || weight <= 0) { showToast('⚠️ وزن را وارد کنید.'); return; }
-
-            const wagePercent = parseFloat(document.getElementById('wage').value) || 0;
-            const profitPercent = parseFloat(document.getElementById('profit').value) || 0;
-            const taxPercent = parseFloat(document.getElementById('tax').value) || 0;
-
-            let currentCaratPrice = gold18Price;
-            if (carat === 21) currentCaratPrice = (gold18Price / 750) * 875;
-            else if (carat === 24) currentCaratPrice = (gold18Price / 750) * 995;
-
-            const rawPrice = currentCaratPrice * weight;
-            const wageAmount = rawPrice * (wagePercent / 100);
-            const profitAmount = (rawPrice + wageAmount) * (profitPercent / 100);
-            const taxAmount = (wageAmount + profitAmount) * (taxPercent / 100);
-            const total = rawPrice + wageAmount + profitAmount + taxAmount;
-            const usd = getUSD();
-            const totalUSD = usd ? (total / usd) : 0;
-
-            const data = {
-                gold18Price,
-                carat,
-                weight,
-                wagePercent,
-                profitPercent,
-                taxPercent,
-                currentCaratPrice,
-                rawPrice,
-                wageAmount,
-                profitAmount,
-                taxAmount,
-                total,
-                totalUSD
-            };
-
-            displayGoldResults(data);
-            lastGoldData = data;
-
-            const buyerName = getBuyerName();
-            saveHistory({ type: 'gold', data: data, total, date: persianDate(), buyerName });
-            updateChart(total);
-            document.getElementById('historyBox').style.display = 'none';
-
-            const threshold = getRawValue(document.getElementById('alertThreshold'));
-            const banner = document.getElementById('alertBanner');
-            banner.style.display = (threshold && total > threshold) ? 'block' : 'none';
-        }
-
-        function displayGoldResults(d) {
-            document.getElementById('resConvertPrice').innerText = Math.round(d.currentCaratPrice).toLocaleString();
-            document.getElementById('resRawGold').innerText = Math.round(d.rawPrice).toLocaleString();
-            document.getElementById('resWage').innerText = Math.round(d.wageAmount).toLocaleString();
-            document.getElementById('resProfit').innerText = Math.round(d.profitAmount).toLocaleString();
-            document.getElementById('resTax').innerText = Math.round(d.taxAmount).toLocaleString();
-            document.getElementById('resTotal').innerText = Math.round(d.total).toLocaleString();
-            document.getElementById('resTotalUSD').innerText = d.totalUSD.toFixed(2);
-            document.getElementById('resWords').innerText = numberToWords(Math.round(d.total)) + ' تومان';
-            document.getElementById('goldResultBox').style.display = 'block';
-            document.getElementById('goldResultBox').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        }
-
-        // ============================================================
-        //  محاسبه سکه
-        // ============================================================
-        function calculateCoin() {
-            const gold18Price = getGlobalPrice();
-            if (!gold18Price) { showToast('⚠️ قیمت مبنای ۱۸ عیار را وارد کنید.'); return; }
-            const coinSelect = document.getElementById('coinType');
-            const selected = coinSelect.options[coinSelect.selectedIndex];
-            const coinWeight = parseFloat(selected.getAttribute('data-weight'));
-            const coinName = selected.text;
-            const coinMarketPrice = getRawValue(document.getElementById('coinMarketPrice'));
-            if (!coinMarketPrice) { showToast('⚠️ قیمت فروش سکه را وارد کنید.'); return; }
-            const coinCount = parseInt(document.getElementById('coinCount').value) || 1;
-            if (coinCount < 1) { showToast('⚠️ تعداد باید حداقل ۱ باشد.'); return; }
-
-            const goldPricePerGram900 = (gold18Price / 750) * 900;
-            const realValuePerCoin = goldPricePerGram900 * coinWeight;
-            const singleBubble = coinMarketPrice - realValuePerCoin;
-            const totalWeight = coinWeight * coinCount;
-            const totalRealValue = realValuePerCoin * coinCount;
-            const totalMarket = coinMarketPrice * coinCount;
-            const usd = getUSD();
-            const totalUSD = usd ? (totalMarket / usd) : 0;
-
-            const data = {
-                gold18Price,
-                coinName,
-                coinWeight,
-                coinMarketPrice,
-                coinCount,
-                realValuePerCoin,
-                singleBubble,
-                totalWeight,
-                totalRealValue,
-                totalMarket,
-                totalUSD
-            };
-
-            displayCoinResults(data);
-            lastCoinData = data;
-
-            const buyerName = getBuyerName();
-            saveHistory({ type: 'coin', data: data, total: totalMarket, date: persianDate(), buyerName });
-            updateChart(totalMarket);
-            document.getElementById('historyBox').style.display = 'none';
-
-            const threshold = getRawValue(document.getElementById('alertThresholdCoin'));
-            const banner = document.getElementById('alertBannerCoin');
-            banner.style.display = (threshold && singleBubble > threshold) ? 'block' : 'none';
-        }
-
-        function displayCoinResults(d) {
-            document.getElementById('resCoinWeight').innerText = d.totalWeight.toFixed(3);
-            document.getElementById('resCoinRealValue').innerText = Math.round(d.totalRealValue).toLocaleString();
-            document.getElementById('resCoinSingleBubble').innerText = Math.round(d.singleBubble).toLocaleString();
-            document.getElementById('resCoinTotal').innerText = Math.round(d.totalMarket).toLocaleString();
-            document.getElementById('resCoinTotalUSD').innerText = d.totalUSD.toFixed(2);
-            document.getElementById('resCoinWords').innerText = numberToWords(Math.round(d.totalMarket)) + ' تومان';
-            document.getElementById('coinResultBox').style.display = 'block';
-            document.getElementById('coinResultBox').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        }
-
-        // ============================================================
-        //  فاکتورها
-        // ============================================================
-        function buildGoldInvoiceHTML(d, buyerName) {
-            const dateStr = persianDate();
-            return `
-                <div class="invoice-row"><span class="label">👤 خریدار</span><span class="value"><strong>${buyerName}</strong></span></div>
-                <div class="invoice-row"><span class="label">📅 تاریخ</span><span class="value">${dateStr}</span></div>
-                <div class="divider-line"></div>
-                <div class="invoice-row"><span class="label">قیمت مبنای ۱۸ عیار</span><span class="value">${Math.round(d.gold18Price).toLocaleString()} تومان</span></div>
-                <div class="invoice-row"><span class="label">عیار طلا</span><span class="value">${d.carat} عیار</span></div>
-                <div class="invoice-row"><span class="label">وزن</span><span class="value">${d.weight.toFixed(3)} گرم</span></div>
-                <div class="invoice-row"><span class="label">قیمت هر گرم (عیار ${d.carat})</span><span class="value">${Math.round(d.currentCaratPrice).toLocaleString()} تومان</span></div>
-                <div class="divider-line"></div>
-                <div class="invoice-row"><span class="label">قیمت خام</span><span class="value"><strong>${Math.round(d.rawPrice).toLocaleString()}</strong> تومان</span></div>
-                <div class="invoice-row"><span class="label">اجرت ساخت (${d.wagePercent}%)</span><span class="value">${Math.round(d.wageAmount).toLocaleString()} تومان</span></div>
-                <div class="invoice-row"><span class="label">سود فروشنده (${d.profitPercent}%)</span><span class="value">${Math.round(d.profitAmount).toLocaleString()} تومان</span></div>
-                <div class="invoice-row"><span class="label">مالیات (${d.taxPercent}%)</span><span class="value">${Math.round(d.taxAmount).toLocaleString()} تومان</span></div>
-                <div class="divider-line"></div>
-                <div class="invoice-row total-row"><span class="label">💰 قیمت نهایی</span><span class="value">${Math.round(d.total).toLocaleString()} تومان</span></div>
-                <div class="invoice-row"><span class="label">💵 معادل دلار</span><span class="value">${d.totalUSD.toFixed(2)} دلار</span></div>
-                <div class="invoice-row"><span class="label">🔤 به حروف</span><span class="value" style="font-size:12px;">${numberToWords(Math.round(d.total))} تومان</span></div>
+‏        // ─── STYLISH INVOICE BUILDERS ───
+‏        function buildGoldInvoiceHTML(d, buyer) {
+‏            const date = persianDate();
+‏            return `
+‏                <div class="inv-meta">
+‏                    <span>📅 ${date}</span>
+‏                    <span>🧾 شماره: #${String(Math.floor(Math.random()*100000)).padStart(5,'0')}</span>
+‏                </div>
+‏                <div class="invoice-row"><span class="label">قیمت مبنای ۱۸ عیار</span><span class="value">${Math.round(d.gold18Price).toLocaleString()} تومان</span></div>
+‏                <div class="invoice-row"><span class="label">عیار طلا</span><span class="value">${d.carat} عیار</span></div>
+‏                <div class="invoice-row"><span class="label">وزن</span><span class="value">${d.weight.toFixed(3)} گرم</span></div>
+‏                <div class="invoice-row"><span class="label">قیمت هر گرم (عیار ${d.carat})</span><span class="value">${Math.round(d.currentCaratPrice).toLocaleString()} تومان</span></div>
+‏                <div class="inv-divider"></div>
+‏                <div class="invoice-row"><span class="label">قیمت خام</span><span class="value"><strong>${Math.round(d.rawPrice).toLocaleString()} تومان</strong></span></div>
+‏                <div class="invoice-row"><span class="label">اجرت ساخت (${d.wagePercent}%)</span><span class="value">${Math.round(d.wageAmount).toLocaleString()} تومان</span></div>
+‏                <div class="invoice-row"><span class="label">سود فروشنده (${d.profitPercent}%)</span><span class="value">${Math.round(d.profitAmount).toLocaleString()} تومان</span></div>
+‏                <div class="invoice-row"><span class="label">مالیات (${d.taxPercent}%)</span><span class="value">${Math.round(d.taxAmount).toLocaleString()} تومان</span></div>
+‏                <div class="inv-divider"></div>
+‏                <div class="invoice-row total-row"><span>💰 قیمت نهایی</span><span>${Math.round(d.total).toLocaleString()} تومان</span></div>
+‏                <div class="invoice-row"><span class="label">💵 معادل دلار</span><span class="value">${d.totalUSD.toFixed(2)} دلار</span></div>
+‏                <div class="invoice-row"><span class="label">🔤 به حروف</span><span class="word-amount-invoice">${numberToWords(Math.round(d.total))} تومان</span></div>
             `;
         }
 
-        function buildCoinInvoiceHTML(d, buyerName) {
-            const dateStr = persianDate();
-            return `
-                <div class="invoice-row"><span class="label">👤 خریدار</span><span class="value"><strong>${buyerName}</strong></span></div>
-                <div class="invoice-row"><span class="label">📅 تاریخ</span><span class="value">${dateStr}</span></div>
-                <div class="divider-line"></div>
-                <div class="invoice-row"><span class="label">قیمت مبنای ۱۸ عیار</span><span class="value">${Math.round(d.gold18Price).toLocaleString()} تومان</span></div>
-                <div class="invoice-row"><span class="label">نوع سکه</span><span class="value">${d.coinName}</span></div>
-                <div class="invoice-row"><span class="label">وزن هر سکه</span><span class="value">${d.coinWeight.toFixed(3)} گرم</span></div>
-                <div class="invoice-row"><span class="label">تعداد</span><span class="value">${d.coinCount} عدد</span></div>
-                <div class="invoice-row"><span class="label">وزن کل</span><span class="value">${d.totalWeight.toFixed(3)} گرم</span></div>
-                <div class="divider-line"></div>
-                <div class="invoice-row"><span class="label">ارزش واقعی (عیار ۲۲)</span><span class="value"><strong>${Math.round(d.totalRealValue).toLocaleString()}</strong> تومان</span></div>
-                <div class="invoice-row"><span class="label">قیمت فروش (هر عدد)</span><span class="value">${Math.round(d.coinMarketPrice).toLocaleString()} تومان</span></div>
-                <div class="invoice-row"><span class="label">حباب هر سکه</span><span class="value" style="color:var(--danger);font-weight:bold;">${Math.round(d.singleBubble).toLocaleString()} تومان</span></div>
-                <div class="divider-line"></div>
-                <div class="invoice-row total-row"><span class="label">💰 قیمت نهایی کل</span><span class="value">${Math.round(d.totalMarket).toLocaleString()} تومان</span></div>
-                <div class="invoice-row"><span class="label">💵 معادل دلار</span><span class="value">${d.totalUSD.toFixed(2)} دلار</span></div>
-                <div class="invoice-row"><span class="label">🔤 به حروف</span><span class="value" style="font-size:12px;">${numberToWords(Math.round(d.totalMarket))} تومان</span></div>
+‏        function buildCoinInvoiceHTML(d, buyer) {
+‏            const date = persianDate();
+‏            return `
+‏                <div class="inv-meta">
+‏                    <span>📅 ${date}</span>
+‏                    <span>🧾 شماره: #${String(Math.floor(Math.random()*100000)).padStart(5,'0')}</span>
+‏                </div>
+‏                <div class="invoice-row"><span class="label">قیمت مبنای ۱۸ عیار</span><span class="value">${Math.round(d.gold18Price).toLocaleString()} تومان</span></div>
+‏                <div class="invoice-row"><span class="label">نوع سکه</span><span class="value">${d.coinName}</span></div>
+‏                <div class="invoice-row"><span class="label">وزن هر سکه</span><span class="value">${d.coinWeight.toFixed(3)} گرم</span></div>
+‏                <div class="invoice-row"><span class="label">تعداد</span><span class="value">${d.coinCount}</span></div>
+‏                <div class="invoice-row"><span class="label">وزن کل</span><span class="value">${d.totalWeight.toFixed(3)} گرم</span></div>
+‏                <div class="inv-divider"></div>
+‏                <div class="invoice-row"><span class="label">ارزش واقعی</span><span class="value">${Math.round(d.totalRealValue).toLocaleString()} تومان</span></div>
+‏                <div class="invoice-row"><span class="label">حباب هر عدد</span><span class="value" style="color:#d32f2f;font-weight:700;">${Math.round(d.singleBubble).toLocaleString()} تومان</span></div>
+‏                <div class="inv-divider"></div>
+‏                <div class="invoice-row total-row"><span>💰 قیمت نهایی</span><span>${Math.round(d.totalMarket).toLocaleString()} تومان</span></div>
+‏                <div class="invoice-row"><span class="label">💵 معادل دلار</span><span class="value">${d.totalUSD.toFixed(2)} دلار</span></div>
+‏                <div class="invoice-row"><span class="label">🔤 به حروف</span><span class="word-amount-invoice">${numberToWords(Math.round(d.totalMarket))} تومان</span></div>
             `;
         }
 
-        function showGoldInvoice() {
-            if (!lastGoldData) { showToast('⚠️ ابتدا طلا را محاسبه کنید.'); return; }
-            const buyerName = getBuyerName();
-            document.getElementById('invTitle').innerText = '📄 صورتحساب طلا';
-            document.getElementById('invDate').innerText = '';
-            document.getElementById('invoiceContent').innerHTML = buildGoldInvoiceHTML(lastGoldData, buyerName);
-            document.getElementById('invoiceOverlay').classList.add('show');
-            currentInvoiceType = 'gold';
+‏        // ─── Show Invoice ───
+‏        function showGoldInvoice() {
+‏            if (!lastGoldData) return showToast('ابتدا طلا را محاسبه کنید');
+‏            const buyer = getBuyerName();
+‏            document.getElementById('invTitle').innerText = '📄 صورتحساب طلا';
+‏            document.getElementById('invBuyerBadge').innerText = buyer;
+‏            document.getElementById('invoiceContent').innerHTML = buildGoldInvoiceHTML(lastGoldData, buyer);
+‏            document.getElementById('invoiceOverlay').classList.add('show');
+‏            currentInvoiceType = 'gold';
         }
 
-        function showCoinInvoice() {
-            if (!lastCoinData) { showToast('⚠️ ابتدا سکه را محاسبه کنید.'); return; }
-            const buyerName = getBuyerName();
-            document.getElementById('invTitle').innerText = '📄 صورتحساب سکه';
-            document.getElementById('invDate').innerText = '';
-            document.getElementById('invoiceContent').innerHTML = buildCoinInvoiceHTML(lastCoinData, buyerName);
-            document.getElementById('invoiceOverlay').classList.add('show');
-            currentInvoiceType = 'coin';
+‏        function showCoinInvoice() {
+‏            if (!lastCoinData) return showToast('ابتدا سکه را محاسبه کنید');
+‏            const buyer = getBuyerName();
+‏            document.getElementById('invTitle').innerText = '📄 صورتحساب سکه';
+‏            document.getElementById('invBuyerBadge').innerText = buyer;
+‏            document.getElementById('invoiceContent').innerHTML = buildCoinInvoiceHTML(lastCoinData, buyer);
+‏            document.getElementById('invoiceOverlay').classList.add('show');
+‏            currentInvoiceType = 'coin';
         }
 
-        function closeInvoice() {
-            document.getElementById('invoiceOverlay').classList.remove('show');
+‏        function closeInvoice() { document.getElementById('invoiceOverlay').classList.remove('show'); }
+
+‏        // ─── Prepare for export ───
+‏        function prepareGoldInvoice() {
+‏            if (!lastGoldData) return;
+‏            const buyer = getBuyerName();
+‏            document.getElementById('invTitle').innerText = '📄 صورتحساب طلا';
+‏            document.getElementById('invBuyerBadge').innerText = buyer;
+‏            document.getElementById('invoiceContent').innerHTML = buildGoldInvoiceHTML(lastGoldData, buyer);
+‏            document.getElementById('invoiceOverlay').classList.add('show');
+‏            currentInvoiceType = 'gold';
         }
 
-        // آماده‌سازی فاکتور بدون نمایش مجدد (برای دانلود)
-        function prepareGoldInvoice() {
-            if (!lastGoldData) return;
-            const buyerName = getBuyerName();
-            document.getElementById('invTitle').innerText = '📄 صورتحساب طلا';
-            document.getElementById('invoiceContent').innerHTML = buildGoldInvoiceHTML(lastGoldData, buyerName);
-            document.getElementById('invoiceOverlay').classList.add('show');
-            currentInvoiceType = 'gold';
+‏        function prepareCoinInvoice() {
+‏            if (!lastCoinData) return;
+‏            const buyer = getBuyerName();
+‏            document.getElementById('invTitle').innerText = '📄 صورتحساب سکه';
+‏            document.getElementById('invBuyerBadge').innerText = buyer;
+‏            document.getElementById('invoiceContent').innerHTML = buildCoinInvoiceHTML(lastCoinData, buyer);
+‏            document.getElementById('invoiceOverlay').classList.add('show');
+‏            currentInvoiceType = 'coin';
         }
 
-        function prepareCoinInvoice() {
-            if (!lastCoinData) return;
-            const buyerName = getBuyerName();
-            document.getElementById('invTitle').innerText = '📄 صورتحساب سکه';
-            document.getElementById('invoiceContent').innerHTML = buildCoinInvoiceHTML(lastCoinData, buyerName);
-            document.getElementById('invoiceOverlay').classList.add('show');
-            currentInvoiceType = 'coin';
-        }
-
-        // ============================================================
-        //  عملیات PDF / PNG / Print (سازگار با آیفون)
-        // ============================================================
-        function getInvoiceElement() {
-            return document.getElementById('invoiceBox');
-        }
-
-        async function captureInvoiceCanvas() {
-            const el = getInvoiceElement();
-            const overlay = document.getElementById('invoiceOverlay');
-            const wasShowing = overlay.classList.contains('show');
-            if (!wasShowing) {
-                overlay.classList.add('show');
-                await new Promise(r => setTimeout(r, 400));
-            }
-            try {
-                const canvas = await html2canvas(el, {
-                    scale: 2,
-                    useCORS: true,
-                    allowTaint: true,
-                    backgroundColor: '#ffffff',
-                    logging: false
-                });
-                return canvas;
-            } catch (e) {
-                console.error('html2canvas error:', e);
-                throw e;
+‏        // ─── Capture invoice for export ───
+‏        async function captureInvoiceCanvas() {
+‏            const el = document.getElementById('invoiceBox');
+‏            const actionsDiv = document.getElementById('invoiceModalActions');
+‏            const overlay = document.getElementById('invoiceOverlay');
+‏            const wasShowing = overlay.classList.contains('show');
+‏            if (!wasShowing) { overlay.classList.add('show');
+‏                await new Promise(r => setTimeout(r, 400)); }
+‏            const originalDisplay = actionsDiv.style.display;
+‏            actionsDiv.style.display = 'none';
+‏            try {
+‏                return await html2canvas(el, { scale: 2, useCORS: true, allowTaint: true, backgroundColor: '#ffffff',
+‏                    logging: false });
+‏            } finally {
+‏                actionsDiv.style.display = originalDisplay;
+‏                if (!wasShowing) overlay.classList.remove('show');
             }
         }
 
-        async function downloadInvoicePDF(filename) {
-            try {
-                showToast('⏳ در حال ساخت PDF...');
-                const canvas = await captureInvoiceCanvas();
-                const imgData = canvas.toDataURL('image/jpeg', 0.92);
-                const { jsPDF } = window.jspdf;
-                const pdf = new jsPDF({
-                    orientation: canvas.width > canvas.height ? 'landscape' : 'portrait',
-                    unit: 'px',
-                    format: [canvas.width / 2, canvas.height / 2]
-                });
-                pdf.addImage(imgData, 'JPEG', 0, 0, canvas.width / 2, canvas.height / 2);
-                const blobUrl = pdf.output('bloburl');
-                window.open(blobUrl, '_blank');
-                showToast('✅ فایل PDF در تب جدید باز شد. برای ذخیره، روی Share کلیک کنید.');
-            } catch (e) {
-                console.error(e);
-                try {
-                    const canvas = await captureInvoiceCanvas();
-                    window.open(canvas.toDataURL('image/png'), '_blank');
-                    showToast('🖼️ نسخه PNG در تب جدید باز شد.');
-                } catch (e2) {
-                    showToast('❌ دانلود ناموفق. لطفاً اسکرین‌شات بگیرید.');
-                }
-            }
+‏        async function downloadInvoicePDF(filename) {
+‏            try {
+‏                showToast('⏳ ساختن PDF...');
+‏                const canvas = await captureInvoiceCanvas();
+‏                const { jsPDF } = window.jspdf;
+‏                const pdf = new jsPDF({ orientation: canvas.width > canvas.height ? 'landscape' : 'portrait', unit: 'px',
+‏                    format: [canvas.width / 2, canvas.height / 2] });
+‏                pdf.addImage(canvas.toDataURL('image/jpeg', 0.92), 'JPEG', 0, 0, canvas.width / 2, canvas.height / 2);
+‏                window.open(pdf.output('bloburl'), '_blank');
+‏                showToast('✅ PDF در تب جدید باز شد');
+‏            } catch (_) { showToast('❌ خطا در PDF'); }
         }
 
-        async function downloadInvoicePNG(filename) {
-            try {
-                showToast('⏳ در حال ساخت PNG...');
-                const canvas = await captureInvoiceCanvas();
-                window.open(canvas.toDataURL('image/png'), '_blank');
-                showToast('✅ تصویر در تب جدید باز شد. آن را طولانی لمس کنید تا ذخیره شود.');
-            } catch (e) {
-                console.error(e);
-                showToast('❌ خطا در دانلود PNG.');
-            }
+‏        async function downloadInvoicePNG(filename) {
+‏            try {
+‏                showToast('⏳ ساختن PNG...');
+‏                const canvas = await captureInvoiceCanvas();
+‏                window.open(canvas.toDataURL('image/png'), '_blank');
+‏                showToast('✅ تصویر باز شد');
+‏            } catch (_) { showToast('❌ خطا'); }
         }
 
-        function printInvoice() {
-            const overlay = document.getElementById('invoiceOverlay');
-            if (!overlay.classList.contains('show')) {
-                if (currentInvoiceType === 'coin' && lastCoinData) showCoinInvoice();
-                else if (lastGoldData) showGoldInvoice();
-                else { showToast('⚠️ ابتدا محاسبه کنید.'); return; }
-            }
-            setTimeout(() => {
-                window.print();
-            }, 500);
+‏        function printInvoiceModal() { window.print(); }
+
+‏        function downloadGoldPDF() { prepareGoldInvoice();
+‏            setTimeout(() => downloadInvoicePDF('فاکتور_طلا.pdf'), 500); }
+
+‏        function downloadCoinPDF() { prepareCoinInvoice();
+‏            setTimeout(() => downloadInvoicePDF('فاکتور_سکه.pdf'), 500); }
+
+‏        function downloadGoldPNG() { prepareGoldInvoice();
+‏            setTimeout(() => downloadInvoicePNG('فاکتور_طلا.png'), 500); }
+
+‏        function downloadCoinPNG() { prepareCoinInvoice();
+‏            setTimeout(() => downloadInvoicePNG('فاکتور_سکه.png'), 500); }
+
+‏        function downloadInvoicePDFModal() { downloadInvoicePDF((currentInvoiceType === 'coin' ? 'فاکتور_سکه' :
+            'فاکتور_طلا') + '.pdf'); }
+
+‏        function downloadInvoicePNGModal() { downloadInvoicePNG((currentInvoiceType === 'coin' ? 'فاکتور_سکه' :
+            'فاکتور_طلا') + '.png'); }
+
+‏        // ─── PWA ───
+‏        if ('serviceWorker' in navigator) { navigator.serviceWorker.register('sw.js', { scope: '/' }).catch(() => {}); }
+‏        window.addEventListener('beforeinstallprompt', e => { e.preventDefault();
+‏            deferredPrompt = e;
+‏            document.getElementById('installBanner').style.display = 'block'; });
+‏        window.addEventListener('appinstalled', () => { document.getElementById('installBanner').style.display = 'none';
+‏            deferredPrompt = null; });
+
+‏        function installApp() {
+‏            if (deferredPrompt) { deferredPrompt.prompt();
+‏                deferredPrompt.userChoice.then(() => { document.getElementById('installBanner').style.display = 'none';
+‏                    deferredPrompt = null; }); } else showToast('از منوی مرورگر Add to Home Screen را بزنید');
         }
 
-        function printInvoiceModal() {
-            window.print();
-        }
-
-        function downloadGoldPDF() {
-            if (!lastGoldData) { showToast('⚠️ ابتدا طلا را محاسبه کنید.'); return; }
-            prepareGoldInvoice();
-            setTimeout(() => downloadInvoicePDF('فاکتور_طلا_' + Date.now() + '.pdf'), 500);
-        }
-
-        function downloadCoinPDF() {
-            if (!lastCoinData) { showToast('⚠️ ابتدا سکه را محاسبه کنید.'); return; }
-            prepareCoinInvoice();
-            setTimeout(() => downloadInvoicePDF('فاکتور_سکه_' + Date.now() + '.pdf'), 500);
-        }
-
-        function downloadGoldPNG() {
-            if (!lastGoldData) { showToast('⚠️ ابتدا طلا را محاسبه کنید.'); return; }
-            prepareGoldInvoice();
-            setTimeout(() => downloadInvoicePNG('فاکتور_طلا_' + Date.now() + '.png'), 500);
-        }
-
-        function downloadCoinPNG() {
-            if (!lastCoinData) { showToast('⚠️ ابتدا سکه را محاسبه کنید.'); return; }
-            prepareCoinInvoice();
-            setTimeout(() => downloadInvoicePNG('فاکتور_سکه_' + Date.now() + '.png'), 500);
-        }
-
-        function downloadInvoicePDFModal() {
-            const filename = (currentInvoiceType === 'coin' ? 'فاکتور_سکه_' : 'فاکتور_طلا_') + Date.now() + '.pdf';
-            downloadInvoicePDF(filename);
-        }
-
-        function downloadInvoicePNGModal() {
-            const filename = (currentInvoiceType === 'coin' ? 'فاکتور_سکه_' : 'فاکتور_طلا_') + Date.now() + '.png';
-            downloadInvoicePNG(filename);
-        }
-
-        // ============================================================
-        //  PWA
-        // ============================================================
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('sw.js', { scope: '/' })
-                .then(() => console.log('✅ SW ثبت شد'))
-                .catch(() => console.log('❌ SW خطا - ممکن است sw.js موجود نباشد'));
-        }
-
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-            document.getElementById('installBanner').style.display = 'block';
+‏        // ─── Init ───
+‏        window.addEventListener('load', () => {
+‏            drawChart();
+‏            document.getElementById('historyBox').style.display = 'none';
+‏            window.addEventListener('resize', () => { clearTimeout(window._resizeTimer);
+‏                window._resizeTimer = setTimeout(drawChart, 300); });
+‏            setTimeout(() => showToast('🚀 خوش آمدید!'), 600);
         });
-
-        window.addEventListener('appinstalled', () => {
-            document.getElementById('installBanner').style.display = 'none';
-            deferredPrompt = null;
-            showToast('✅ برنامه با موفقیت نصب شد!');
-        });
-
-        function installApp() {
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                deferredPrompt.userChoice.then((choiceResult) => {
-                    if (choiceResult.outcome === 'accepted') {
-                        document.getElementById('installBanner').style.display = 'none';
-                        deferredPrompt = null;
-                    }
-                });
-            } else {
-                showToast('⚠️ از منوی مرورگر گزینه "Add to Home Screen" را انتخاب کنید.');
-            }
-        }
-
-        // ============================================================
-        //  بارگذاری اولیه
-        // ============================================================
-        window.addEventListener('load', () => {
-            drawChart();
-            document.getElementById('historyBox').style.display = 'none';
-            if (localStorage.getItem('theme') === 'dark') {
-                document.documentElement.setAttribute('data-theme', 'dark');
-            }
-            let resizeTimeout;
-            window.addEventListener('resize', () => {
-                clearTimeout(resizeTimeout);
-                resizeTimeout = setTimeout(drawChart, 300);
-            });
-            setTimeout(() => showToast('🚀 به سامانه طلا خوش آمدید!'), 600);
-        });
-
-        document.getElementById('invoiceOverlay').addEventListener('click', function(e) {
-            if (e.target === this) closeInvoice();
-        });
-
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') closeInvoice();
-        });
-    </script>
-
-</body>
-</html>
+‏        document.getElementById('invoiceOverlay').addEventListener('click', function(e) { if (e.target === this) closeInvoice(); });
+‏        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeInvoice(); });
+‏    </script>
+‏</body>
+‏</html>
