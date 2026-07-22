@@ -553,53 +553,54 @@
 
         .invoice-box {
             background: #ffffff;
-            color: #111827;
+            color: #3a3a3a;
             max-width: 580px;
             width: 100%;
             max-height: 92vh;
             overflow-y: auto;
             border-radius: 20px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
-            border: 1px solid #e5e7eb;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+            border: 1px solid #d0d0d0;
             padding: 0;
         }
 
         .invoice-header {
             background: #ffffff;
-            color: #111827;
+            color: #3a3a3a;
             padding: 26px 24px 18px;
             border-radius: 20px 20px 0 0;
             text-align: center;
             position: relative;
-            border-bottom: 2px solid #111827;
+            border-bottom: 2px solid #d0d0d0;
         }
         .invoice-header .inv-icon {
             font-size: 28px;
             display: block;
             margin-bottom: 4px;
+            color: #6a6a6a;
         }
         .invoice-header h3 {
             font-size: 22px;
             margin: 0 0 2px;
             font-weight: 900;
             letter-spacing: -0.5px;
-            color: #111827;
+            color: #3a3a3a;
         }
         .invoice-header .inv-sub {
             font-size: 12px;
-            color: #6b7280;
+            color: #7a7a7a;
             font-weight: 400;
         }
         .invoice-header .buyer-badge {
             display: inline-block;
-            background: #f3f4f6;
-            color: #111827;
+            background: #f0f0f0;
+            color: #3a3a3a;
             padding: 6px 22px;
             border-radius: 30px;
             font-size: 15px;
             font-weight: 700;
             margin-top: 10px;
-            border: 1px solid #d1d5db;
+            border: 1px solid #d0d0d0;
         }
 
         .invoice-body {
@@ -610,9 +611,9 @@
             display: flex;
             justify-content: space-between;
             font-size: 12px;
-            color: #6b7280;
+            color: #7a7a7a;
             padding-bottom: 12px;
-            border-bottom: 1px dashed #d1d5db;
+            border-bottom: 1px dashed #d0d0d0;
             margin-bottom: 12px;
             flex-wrap: wrap;
             gap: 6px;
@@ -622,63 +623,63 @@
             display: flex;
             justify-content: space-between;
             padding: 9px 0;
-            border-bottom: 1px solid #f3f4f6;
+            border-bottom: 1px solid #eaeaea;
             font-size: 14px;
             flex-wrap: wrap;
             gap: 6px;
             align-items: center;
         }
         .invoice-row .label {
-            color: #4b5563;
+            color: #5a5a5a;
             font-weight: 500;
         }
         .invoice-row .value {
             font-weight: 700;
-            color: #111827;
+            color: #3a3a3a;
             text-align: left;
         }
         .invoice-row.total-row {
             font-size: 19px;
             font-weight: 900;
-            color: #111827;
-            border-top: 2px solid #111827;
-            border-bottom: 2px solid #111827;
+            color: #3a3a3a;
+            border-top: 2px solid #c0c0c0;
+            border-bottom: 2px solid #c0c0c0;
             padding: 12px 14px;
             margin-top: 12px;
-            background: #f9fafb;
+            background: #f8f8f8;
             border-radius: 8px;
         }
         .invoice-row.total-row .value {
-            color: #111827;
+            color: #3a3a3a;
         }
         .inv-divider {
             margin: 10px 0;
-            border-top: 1px dashed #d1d5db;
+            border-top: 1px dashed #d0d0d0;
         }
         .word-amount-invoice {
             font-size: 13px;
-            color: #111827;
-            background: #f3f4f6;
+            color: #3a3a3a;
+            background: #f0f0f0;
             padding: 4px 14px;
             border-radius: 12px;
             display: inline-block;
             font-weight: 600;
-            border: 1px solid #e5e7eb;
+            border: 1px solid #d0d0d0;
         }
 
         .invoice-actions {
             display: flex;
             gap: 8px;
             padding: 14px 20px 18px;
-            background: #f9fafb;
-            border-top: 1px solid #e5e7eb;
+            background: #f8f8f8;
+            border-top: 1px solid #d0d0d0;
             border-radius: 0 0 20px 20px;
             justify-content: center;
             flex-wrap: wrap;
         }
         .invoice-actions button {
             padding: 9px 16px;
-            border: 1px solid #d1d5db;
+            border: 1px solid #d0d0d0;
             border-radius: 10px;
             font-weight: 700;
             cursor: pointer;
@@ -686,12 +687,12 @@
             transition: 0.2s;
             min-width: 64px;
             background: #ffffff;
-            color: #111827;
+            color: #3a3a3a;
         }
         .invoice-actions button:hover {
-            background: #111827;
+            background: #3a3a3a;
             color: #ffffff;
-            border-color: #111827;
+            border-color: #3a3a3a;
         }
         .invoice-actions button:active {
             transform: scale(0.95);
@@ -711,7 +712,7 @@
                 animation: none !important;
             }
             .invoice-box {
-                border: 1px solid #111 !important;
+                border: 1px solid #aaa !important;
                 box-shadow: none !important;
                 max-height: none !important;
                 border-radius: 0 !important;
@@ -720,15 +721,15 @@
             .invoice-header {
                 background: #fff !important;
                 color: #000 !important;
-                border-bottom: 2px solid #000 !important;
+                border-bottom: 2px solid #aaa !important;
             }
             .invoice-actions {
                 display: none !important;
             }
             .invoice-row.total-row {
                 background: #f0f0f0 !important;
-                border-top: 2px solid #000 !important;
-                border-bottom: 2px solid #000 !important;
+                border-top: 2px solid #aaa !important;
+                border-bottom: 2px solid #aaa !important;
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
             }
@@ -1265,7 +1266,7 @@
             document.getElementById('coinResultBox').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
 
-        /* ===== INVOICE GENERATORS (WAGE & PROFIT AS PERCENTAGES ONLY) ===== */
+        /* ===== INVOICE GENERATORS ===== */
         function buildGoldInvoiceHTML(d, buyer) {
             const date = persianDate();
             return `
@@ -1342,7 +1343,7 @@
             const originalDisplay = actionsDiv.style.display;
             actionsDiv.style.display = 'none';
             try {
-                return await html2canvas(el, { scale: 2, useCORS: true, allowTaint: true, backgroundColor: '#ffffff', logging: false });
+                return await html2canvas(el, { scale: 3, useCORS: true, allowTaint: true, backgroundColor: '#ffffff', logging: false });
             } finally {
                 actionsDiv.style.display = originalDisplay;
                 if (!wasShowing) overlay.classList.remove('show');
@@ -1354,11 +1355,16 @@
                 showToast('⏳ ساختن PDF...');
                 const canvas = await captureInvoiceCanvas();
                 const { jsPDF } = window.jspdf;
-                const pdf = new jsPDF({ orientation: canvas.width > canvas.height ? 'landscape' : 'portrait', unit: 'px', format: [canvas.width / 2, canvas.height / 2] });
-                pdf.addImage(canvas.toDataURL('image/jpeg', 0.92), 'JPEG', 0, 0, canvas.width / 2, canvas.height / 2);
+                // محاسبه ابعاد مناسب برای A4
+                const imgWidth = 210; // mm
+                const imgHeight = (canvas.height / canvas.width) * imgWidth;
+                const pdf = new jsPDF({ orientation: imgHeight > imgWidth ? 'portrait' : 'landscape', unit: 'mm' });
+                pdf.addImage(canvas.toDataURL('image/jpeg', 0.95), 'JPEG', 0, 0, imgWidth, imgHeight);
                 pdf.save((currentInvoiceType === 'coin' ? 'فاکتور_سکه' : 'فاکتور_طلا') + '.pdf');
                 showToast('✅ PDF دانلود شد');
-            } catch (_) { showToast('❌ خطا در ساخت PDF'); }
+            } catch (_) {
+                showToast('❌ خطا در ساخت PDF');
+            }
         }
 
         async function downloadInvoicePNGModal() {
@@ -1370,7 +1376,9 @@
                 link.href = canvas.toDataURL('image/png');
                 link.click();
                 showToast('✅ تصویر ذخیره شد');
-            } catch (_) { showToast('❌ خطا در دانلود تصویر'); }
+            } catch (_) {
+                showToast('❌ خطا در دانلود تصویر');
+            }
         }
 
         function printInvoiceModal() { window.print(); }
