@@ -630,7 +630,7 @@
             align-items: center;
         }
         .invoice-row .label {
-            color: #5a5a5a;
+            color: #5a5a6a;
             font-weight: 500;
         }
         .invoice-row .value {
@@ -833,7 +833,7 @@
             </div>
         </div>
         <button class="calc-btn" style="background:linear-gradient(135deg,#9e9e9e,#757575);box-shadow:0 4px 16px rgba(0,0,0,0.06);margin-top:-4px;font-size:14px;" onclick="estimateFromOunce()">
-            🔮 تخمین ۱۸ عیار از انس
+‎            🔮 تخمین ۱۸ عیار از انس
         </button>
 
         <div class="buyer-group">
@@ -1334,35 +1334,117 @@
 
         function closeInvoice() { document.getElementById('invoiceOverlay').classList.remove('show'); }
 
+        /* ===== OPTIMIZED & IOS-SAFE CANVAS CAPTURE FOR PDF ===== */
         async function captureInvoiceCanvas() {
             const el = document.getElementById('invoiceBox');
             const actionsDiv = document.getElementById('invoiceModalActions');
             const overlay = document.getElementById('invoiceOverlay');
+
             const wasShowing = overlay.classList.contains('show');
-            if (!wasShowing) { overlay.classList.add('show'); await new Promise(r => setTimeout(r, 400)); }
-            const originalDisplay = actionsDiv.style.display;
+            if (!wasShowing) { 
+                overlay.classList.add('show'); 
+                await new Promise(r => setTimeout(r, 300)); 
+            }
+
+‎            // اطمینان از لود کامل فونت‌ها جهت عدم به‌هم‌ریختگی فونت فارسی
+            if (document.fonts && document.fonts.ready) {
+                await document.fonts.ready;
+            }
+
+‎            // ذخیره استایل‌های اصلی برای بازگرداندن پس از رندر
+            const origMaxHeight = el.style.maxHeight;
+            const origOverflow = el.style.overflow;
+            const origDisplay = actionsDiv.style.display;
+            const origBoxShadow = el.style.boxShadow;
+
+‎            // برداشتن اسکرول‌بار و محدودیت ارتفاع برای کادربندی کامل فاکتور در آیفون
             actionsDiv.style.display = 'none';
+            el.style.maxHeight = 'none';
+            el.style.overflow = 'visible';
+            el.style.boxShadow = 'none';
+
             try {
-                return await html2canvas(el, { scale: 3, useCORS: true, allowTaint: true, backgroundColor: '#ffffff', logging: false });
+                await new Promise(r => setTimeout(r, 120));
+                const canvas = await html2canvas(el, { 
+                    scale: 3, 
+                    useCORS: true, 
+                    allowTaint: true, 
+                    backgroundColor: '#ffffff', 
+                    logging: false,
+                    windowWidth: el.scrollWidth,
+                    windowHeight: el.scrollHeight
+                });
+                return canvas;
             } finally {
-                actionsDiv.style.display = originalDisplay;
+‎                // بازگرداندن وضعیت قبلی DOM
+                actionsDiv.style.display = origDisplay;
+                el.style.maxHeight = origMaxHeight;
+                el.style.overflow = origOverflow;
+                el.style.boxShadow = origBoxShadow;
                 if (!wasShowing) overlay.classList.remove('show');
             }
         }
 
+        /* ===== OPTIMIZED PDF DOWNLOAD (A4 FIT & IOS COMPATIBLE) ===== */
         async function downloadInvoicePDFModal() {
             try {
                 showToast('⏳ ساختن PDF...');
                 const canvas = await captureInvoiceCanvas();
                 const { jsPDF } = window.jspdf;
-                // محاسبه ابعاد مناسب برای A4
-                const imgWidth = 210; // mm
-                const imgHeight = (canvas.height / canvas.width) * imgWidth;
-                const pdf = new jsPDF({ orientation: imgHeight > imgWidth ? 'portrait' : 'landscape', unit: 'mm' });
-                pdf.addImage(canvas.toDataURL('image/jpeg', 0.95), 'JPEG', 0, 0, imgWidth, imgHeight);
-                pdf.save((currentInvoiceType === 'coin' ? 'فاکتور_سکه' : 'فاکتور_طلا') + '.pdf');
+
+‎                // ابعاد دقیق برگه A4 عمودی به میلی‌متر
+                const pdfWidth = 210;
+                const pdfHeight = 297;
+                const margin = 12; // حاشیه از اطراف
+
+                const maxWidth = pdfWidth - (margin * 2);
+                const maxHeight = pdfHeight - (margin * 2);
+
+                let imgWidth = maxWidth;
+                let imgHeight = (canvas.height / canvas.width) * imgWidth;
+
+‎                // مقیاس‌بندی هوشمند برای قرارگیری دقیق محتوا تنها در یک صفحه A4
+                if (imgHeight > maxHeight) {
+                    imgHeight = maxHeight;
+                    imgWidth = (canvas.width / canvas.height) * imgHeight;
+                }
+
+‎                // قرارگیری در مرکز برگه A4
+                const x = (pdfWidth - imgWidth) / 2;
+                const y = (pdfHeight - imgHeight) / 2;
+
+                const pdf = new jsPDF({
+                    orientation: 'portrait',
+                    unit: 'mm',
+                    format: 'a4'
+                });
+
+                pdf.addImage(canvas.toDataURL('image/png'), 'PNG', x, y, imgWidth, imgHeight);
+
+‎                // نام انگلیسی استاندارد برای جلوگیری از لغو دانلود در مرورگر Safari آیفون
+                const fileName = (currentInvoiceType === 'coin' ? 'Factor_Coin.pdf' : 'Factor_Gold.pdf');
+
+‎                // تشخیص دستگاه آیفون/آیپد برای دانلود بدون خطا
+                const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
+                if (isIOS) {
+                    const blob = pdf.output('blob');
+                    const blobUrl = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = blobUrl;
+                    a.download = fileName;
+                    a.target = '_blank';
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    setTimeout(() => URL.revokeObjectURL(blobUrl), 3000);
+                } else {
+                    pdf.save(fileName);
+                }
+
                 showToast('✅ PDF دانلود شد');
-            } catch (_) {
+            } catch (err) {
+                console.error(err);
                 showToast('❌ خطا در ساخت PDF');
             }
         }
@@ -1372,7 +1454,7 @@
                 showToast('⏳ ساختن تصویر...');
                 const canvas = await captureInvoiceCanvas();
                 const link = document.createElement('a');
-                link.download = (currentInvoiceType === 'coin' ? 'فاکتور_سکه' : 'فاکتور_طلا') + '.png';
+                link.download = (currentInvoiceType === 'coin' ? 'Factor_Coin.png' : 'Factor_Gold.png');
                 link.href = canvas.toDataURL('image/png');
                 link.click();
                 showToast('✅ تصویر ذخیره شد');
