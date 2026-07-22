@@ -525,7 +525,7 @@
             pointer-events: auto;
         }
 
-        /* ===== INVOICE OVERLAY ===== */
+        /* ===== ELEGANT MONOCHROME INVOICE OVERLAY ===== */
         .invoice-overlay {
             display: none;
             position: fixed;
@@ -533,7 +533,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.45);
+            background: rgba(0, 0, 0, 0.5);
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
             z-index: 1000;
@@ -547,83 +547,73 @@
             animation: fadeIn 0.3s ease;
         }
         @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.96); }
+            from { opacity: 0; transform: scale(0.97); }
             to { opacity: 1; transform: scale(1); }
         }
 
         .invoice-box {
             background: #ffffff;
-            color: #1e1e2a;
-            max-width: 620px;
+            color: #111827;
+            max-width: 580px;
             width: 100%;
             max-height: 92vh;
             overflow-y: auto;
-            border-radius: 28px;
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.15);
-            border: 1px solid rgba(184, 134, 11, 0.1);
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+            border: 1px solid #e5e7eb;
             padding: 0;
         }
 
         .invoice-header {
-            background: linear-gradient(135deg, #b8860b, #7a5f0a);
-            color: #fff;
-            padding: 28px 28px 22px;
-            border-radius: 28px 28px 0 0;
+            background: #ffffff;
+            color: #111827;
+            padding: 26px 24px 18px;
+            border-radius: 20px 20px 0 0;
             text-align: center;
             position: relative;
-            overflow: hidden;
-        }
-        .invoice-header::after {
-            content: '✦';
-            position: absolute;
-            bottom: -24px;
-            left: -12px;
-            font-size: 140px;
-            opacity: 0.06;
-            color: #fff;
-            transform: rotate(-10deg);
-            pointer-events: none;
+            border-bottom: 2px solid #111827;
         }
         .invoice-header .inv-icon {
-            font-size: 32px;
+            font-size: 28px;
             display: block;
-            margin-bottom: 2px;
+            margin-bottom: 4px;
         }
         .invoice-header h3 {
-            font-size: 24px;
-            margin: 0 0 4px;
+            font-size: 22px;
+            margin: 0 0 2px;
             font-weight: 900;
-            letter-spacing: 0.5px;
+            letter-spacing: -0.5px;
+            color: #111827;
         }
         .invoice-header .inv-sub {
-            font-size: 13px;
-            opacity: 0.75;
-            font-weight: 300;
+            font-size: 12px;
+            color: #6b7280;
+            font-weight: 400;
         }
         .invoice-header .buyer-badge {
             display: inline-block;
-            background: rgba(255, 255, 255, 0.15);
-            padding: 8px 28px;
-            border-radius: 40px;
-            font-size: 18px;
+            background: #f3f4f6;
+            color: #111827;
+            padding: 6px 22px;
+            border-radius: 30px;
+            font-size: 15px;
             font-weight: 700;
             margin-top: 10px;
-            backdrop-filter: blur(4px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid #d1d5db;
         }
 
         .invoice-body {
-            padding: 24px 26px 18px;
+            padding: 22px 24px 16px;
         }
 
         .invoice-meta {
             display: flex;
             justify-content: space-between;
             font-size: 12px;
-            color: #888;
-            padding-bottom: 14px;
-            border-bottom: 1.5px dashed rgba(184, 134, 11, 0.15);
-            margin-bottom: 14px;
+            color: #6b7280;
+            padding-bottom: 12px;
+            border-bottom: 1px dashed #d1d5db;
+            margin-bottom: 12px;
             flex-wrap: wrap;
             gap: 6px;
         }
@@ -631,100 +621,80 @@
         .invoice-row {
             display: flex;
             justify-content: space-between;
-            padding: 7px 0;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+            padding: 9px 0;
+            border-bottom: 1px solid #f3f4f6;
             font-size: 14px;
             flex-wrap: wrap;
             gap: 6px;
             align-items: center;
         }
         .invoice-row .label {
-            color: #666;
+            color: #4b5563;
             font-weight: 500;
         }
         .invoice-row .value {
-            font-weight: 600;
+            font-weight: 700;
+            color: #111827;
             text-align: left;
         }
         .invoice-row.total-row {
-            font-size: 20px;
+            font-size: 19px;
             font-weight: 900;
-            color: #b8860b;
-            border-top: 3px solid #b8860b;
-            border-bottom: none;
-            padding-top: 16px;
+            color: #111827;
+            border-top: 2px solid #111827;
+            border-bottom: 2px solid #111827;
+            padding: 12px 14px;
             margin-top: 12px;
-            background: rgba(184, 134, 11, 0.03);
-            border-radius: 10px;
-            padding: 14px 16px;
+            background: #f9fafb;
+            border-radius: 8px;
         }
         .invoice-row.total-row .value {
-            color: #b8860b;
+            color: #111827;
         }
         .inv-divider {
-            margin: 12px 0;
-            border-top: 2px dotted rgba(184, 134, 11, 0.15);
+            margin: 10px 0;
+            border-top: 1px dashed #d1d5db;
         }
         .word-amount-invoice {
             font-size: 13px;
-            color: #8b6f0b;
-            background: rgba(184, 134, 11, 0.06);
-            padding: 4px 18px;
-            border-radius: 20px;
+            color: #111827;
+            background: #f3f4f6;
+            padding: 4px 14px;
+            border-radius: 12px;
             display: inline-block;
-            font-weight: 500;
+            font-weight: 600;
+            border: 1px solid #e5e7eb;
         }
 
         .invoice-actions {
             display: flex;
             gap: 8px;
-            padding: 16px 22px 22px;
-            background: #f8f6f2;
-            border-top: 1px solid #e8e4dc;
-            border-radius: 0 0 28px 28px;
+            padding: 14px 20px 18px;
+            background: #f9fafb;
+            border-top: 1px solid #e5e7eb;
+            border-radius: 0 0 20px 20px;
             justify-content: center;
             flex-wrap: wrap;
         }
         .invoice-actions button {
-            padding: 10px 18px;
-            border: none;
-            border-radius: 12px;
+            padding: 9px 16px;
+            border: 1px solid #d1d5db;
+            border-radius: 10px;
             font-weight: 700;
             cursor: pointer;
             font-size: 13px;
             transition: 0.2s;
             min-width: 64px;
+            background: #ffffff;
+            color: #111827;
+        }
+        .invoice-actions button:hover {
+            background: #111827;
+            color: #ffffff;
+            border-color: #111827;
         }
         .invoice-actions button:active {
-            transform: scale(0.94);
-        }
-        .btn-close-inv {
-            background: #e0dcd6;
-            color: #3d3d4a;
-        }
-        .btn-close-inv:hover {
-            background: #ccc8c0;
-        }
-        .btn-pdf-inv {
-            background: #c62828;
-            color: #fff;
-        }
-        .btn-pdf-inv:hover {
-            background: #b71c1c;
-        }
-        .btn-png-inv {
-            background: #e65100;
-            color: #fff;
-        }
-        .btn-png-inv:hover {
-            background: #c94a00;
-        }
-        .btn-print-inv {
-            background: #0d47a1;
-            color: #fff;
-        }
-        .btn-print-inv:hover {
-            background: #0a3a7a;
+            transform: scale(0.95);
         }
 
         /* ===== PRINT ===== */
@@ -741,27 +711,29 @@
                 animation: none !important;
             }
             .invoice-box {
-                border: 1px solid #ddd !important;
+                border: 1px solid #111 !important;
                 box-shadow: none !important;
                 max-height: none !important;
                 border-radius: 0 !important;
                 max-width: 100% !important;
             }
             .invoice-header {
-                background: #b8860b !important;
-                -webkit-print-color-adjust: exact;
-                print-color-adjust: exact;
+                background: #fff !important;
+                color: #000 !important;
+                border-bottom: 2px solid #000 !important;
             }
             .invoice-actions {
                 display: none !important;
             }
             .invoice-row.total-row {
-                background: rgba(184, 134, 11, 0.04) !important;
+                background: #f0f0f0 !important;
+                border-top: 2px solid #000 !important;
+                border-bottom: 2px solid #000 !important;
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
             }
             .word-amount-invoice {
-                background: rgba(184, 134, 11, 0.06) !important;
+                background: #f0f0f0 !important;
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
             }
@@ -796,11 +768,11 @@
                 min-width: 100px;
             }
             .invoice-header h3 {
-                font-size: 20px;
+                font-size: 19px;
             }
             .invoice-header .buyer-badge {
-                font-size: 15px;
-                padding: 6px 18px;
+                font-size: 14px;
+                padding: 5px 16px;
             }
             .invoice-body {
                 padding: 16px 14px;
@@ -809,7 +781,7 @@
                 font-size: 13px;
             }
             .invoice-row.total-row {
-                font-size: 17px;
+                font-size: 16px;
                 padding: 10px 12px;
             }
             .invoice-actions {
@@ -964,17 +936,17 @@
     <div class="invoice-overlay" id="invoiceOverlay">
         <div class="invoice-box" id="invoiceBox">
             <div class="invoice-header">
-                <span class="inv-icon">🏅</span>
+                <span class="inv-icon">⚖️</span>
                 <h3 id="invTitle">صورتحساب</h3>
-                <div class="inv-sub">فاکتور رسمی · سامانه طلا</div>
+                <div class="inv-sub">فاکتور فروشگاه طلا و جواهر</div>
                 <div id="invBuyerBadge" class="buyer-badge">مشتری</div>
             </div>
             <div class="invoice-body" id="invoiceContent"></div>
             <div class="invoice-actions" id="invoiceModalActions">
-                <button class="btn-close-inv" onclick="closeInvoice()">✖️ بستن</button>
-                <button class="btn-pdf-inv" onclick="downloadInvoicePDFModal()">📥 PDF</button>
-                <button class="btn-png-inv" onclick="downloadInvoicePNGModal()">🖼️ PNG</button>
-                <button class="btn-print-inv" onclick="printInvoiceModal()">🖨️ پرینت</button>
+                <button onclick="closeInvoice()">✖️ بستن</button>
+                <button onclick="downloadInvoicePDFModal()">📥 PDF</button>
+                <button onclick="downloadInvoicePNGModal()">🖼️ PNG</button>
+                <button onclick="printInvoiceModal()">🖨️ پرینت</button>
             </div>
         </div>
     </div>
@@ -1293,26 +1265,27 @@
             document.getElementById('coinResultBox').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
 
+        /* ===== INVOICE GENERATORS (WAGE & PROFIT AS PERCENTAGES ONLY) ===== */
         function buildGoldInvoiceHTML(d, buyer) {
             const date = persianDate();
             return `
                 <div class="invoice-meta">
                     <span>📅 ${date}</span>
-                    <span>🧾 #${String(Math.floor(Math.random()*100000)).padStart(5,'0')}</span>
+                    <span>🧾 شماره: #${String(Math.floor(Math.random()*100000)).padStart(5,'0')}</span>
                 </div>
-                <div class="invoice-row"><span class="label">قیمت ۱۸ عیار</span><span class="value">${Math.round(d.gold18Price).toLocaleString()} تومان</span></div>
-                <div class="invoice-row"><span class="label">عیار</span><span class="value">${d.carat} عیار</span></div>
-                <div class="invoice-row"><span class="label">وزن</span><span class="value">${d.weight.toFixed(3)} گرم</span></div>
+                <div class="invoice-row"><span class="label">قیمت ۱۸ عیار پایه</span><span class="value">${Math.round(d.gold18Price).toLocaleString()} تومان</span></div>
+                <div class="invoice-row"><span class="label">عیار طلا</span><span class="value">${d.carat} عیار</span></div>
+                <div class="invoice-row"><span class="label">وزن طلا</span><span class="value">${d.weight.toFixed(3)} گرم</span></div>
                 <div class="invoice-row"><span class="label">قیمت هر گرم</span><span class="value">${Math.round(d.currentCaratPrice).toLocaleString()} تومان</span></div>
                 <div class="inv-divider"></div>
-                <div class="invoice-row"><span class="label">قیمت خام</span><span class="value"><strong>${Math.round(d.rawPrice).toLocaleString()} تومان</strong></span></div>
-                <div class="invoice-row"><span class="label">اجرت (${d.wagePercent}%)</span><span class="value">${Math.round(d.wageAmount).toLocaleString()} تومان</span></div>
-                <div class="invoice-row"><span class="label">سود (${d.profitPercent}%)</span><span class="value">${Math.round(d.profitAmount).toLocaleString()} تومان</span></div>
-                <div class="invoice-row"><span class="label">مالیات (${d.taxPercent}%)</span><span class="value">${Math.round(d.taxAmount).toLocaleString()} تومان</span></div>
+                <div class="invoice-row"><span class="label">قیمت طلا خام</span><span class="value">${Math.round(d.rawPrice).toLocaleString()} تومان</span></div>
+                <div class="invoice-row"><span class="label">اجرت ساخت</span><span class="value">${d.wagePercent}٪</span></div>
+                <div class="invoice-row"><span class="label">سود فروشنده</span><span class="value">${d.profitPercent}٪</span></div>
+                <div class="invoice-row"><span class="label">مالیات</span><span class="value">${d.taxPercent}٪</span></div>
                 <div class="inv-divider"></div>
-                <div class="invoice-row total-row"><span>💰 قیمت نهایی</span><span>${Math.round(d.total).toLocaleString()} تومان</span></div>
-                <div class="invoice-row"><span class="label">💵 دلار</span><span class="value">${d.totalUSD.toFixed(2)}</span></div>
-                <div class="invoice-row"><span class="label">🔤 به حروف</span><span class="word-amount-invoice">${numberToWords(Math.round(d.total))} تومان</span></div>
+                <div class="invoice-row total-row"><span>مبلغ قابل پرداخت</span><span>${Math.round(d.total).toLocaleString()} تومان</span></div>
+                <div class="invoice-row"><span class="label">معادل دلاری</span><span class="value">${d.totalUSD.toFixed(2)} $</span></div>
+                <div class="invoice-row"><span class="label">مبلغ به حروف</span><span class="word-amount-invoice">${numberToWords(Math.round(d.total))} تومان</span></div>
             `;
         }
 
@@ -1321,28 +1294,28 @@
             return `
                 <div class="invoice-meta">
                     <span>📅 ${date}</span>
-                    <span>🧾 #${String(Math.floor(Math.random()*100000)).padStart(5,'0')}</span>
+                    <span>🧾 شماره: #${String(Math.floor(Math.random()*100000)).padStart(5,'0')}</span>
                 </div>
-                <div class="invoice-row"><span class="label">قیمت ۱۸ عیار</span><span class="value">${Math.round(d.gold18Price).toLocaleString()} تومان</span></div>
-                <div class="invoice-row"><span class="label">نوع</span><span class="value">${d.coinName}</span></div>
+                <div class="invoice-row"><span class="label">قیمت ۱۸ عیار پایه</span><span class="value">${Math.round(d.gold18Price).toLocaleString()} تومان</span></div>
+                <div class="invoice-row"><span class="label">نوع سکه</span><span class="value">${d.coinName}</span></div>
                 <div class="invoice-row"><span class="label">وزن هر سکه</span><span class="value">${d.coinWeight.toFixed(3)} گرم</span></div>
-                <div class="invoice-row"><span class="label">تعداد</span><span class="value">${d.coinCount}</span></div>
+                <div class="invoice-row"><span class="label">تعداد</span><span class="value">${d.coinCount} عدد</span></div>
                 <div class="invoice-row"><span class="label">وزن کل</span><span class="value">${d.totalWeight.toFixed(3)} گرم</span></div>
                 <div class="inv-divider"></div>
-                <div class="invoice-row"><span class="label">ارزش واقعی</span><span class="value">${Math.round(d.totalRealValue).toLocaleString()} تومان</span></div>
-                <div class="invoice-row"><span class="label">حباب هر عدد</span><span class="value" style="color:#d32f2f;font-weight:700;">${Math.round(d.singleBubble).toLocaleString()} تومان</span></div>
+                <div class="invoice-row"><span class="label">ارزش واقعی طلا</span><span class="value">${Math.round(d.totalRealValue).toLocaleString()} تومان</span></div>
+                <div class="invoice-row"><span class="label">حباب هر سکه</span><span class="value">${Math.round(d.singleBubble).toLocaleString()} تومان</span></div>
                 <div class="inv-divider"></div>
-                <div class="invoice-row total-row"><span>💰 قیمت نهایی</span><span>${Math.round(d.totalMarket).toLocaleString()} تومان</span></div>
-                <div class="invoice-row"><span class="label">💵 دلار</span><span class="value">${d.totalUSD.toFixed(2)}</span></div>
-                <div class="invoice-row"><span class="label">🔤 به حروف</span><span class="word-amount-invoice">${numberToWords(Math.round(d.totalMarket))} تومان</span></div>
+                <div class="invoice-row total-row"><span>مبلغ قابل پرداخت</span><span>${Math.round(d.totalMarket).toLocaleString()} تومان</span></div>
+                <div class="invoice-row"><span class="label">معادل دلاری</span><span class="value">${d.totalUSD.toFixed(2)} $</span></div>
+                <div class="invoice-row"><span class="label">مبلغ به حروف</span><span class="word-amount-invoice">${numberToWords(Math.round(d.totalMarket))} تومان</span></div>
             `;
         }
 
         function showGoldInvoice() {
             if (!lastGoldData) return showToast('ابتدا طلا را محاسبه کنید');
             const buyer = getBuyerName();
-            document.getElementById('invTitle').innerHTML = '📄 صورتحساب طلا';
-            document.getElementById('invBuyerBadge').innerText = buyer;
+            document.getElementById('invTitle').innerText = 'صورتحساب طلا';
+            document.getElementById('invBuyerBadge').innerText = 'خریدار: ' + buyer;
             document.getElementById('invoiceContent').innerHTML = buildGoldInvoiceHTML(lastGoldData, buyer);
             document.getElementById('invoiceOverlay').classList.add('show');
             currentInvoiceType = 'gold';
@@ -1351,8 +1324,8 @@
         function showCoinInvoice() {
             if (!lastCoinData) return showToast('ابتدا سکه را محاسبه کنید');
             const buyer = getBuyerName();
-            document.getElementById('invTitle').innerHTML = '📄 صورتحساب سکه';
-            document.getElementById('invBuyerBadge').innerText = buyer;
+            document.getElementById('invTitle').innerText = 'صورتحساب سکه';
+            document.getElementById('invBuyerBadge').innerText = 'خریدار: ' + buyer;
             document.getElementById('invoiceContent').innerHTML = buildCoinInvoiceHTML(lastCoinData, buyer);
             document.getElementById('invoiceOverlay').classList.add('show');
             currentInvoiceType = 'coin';
